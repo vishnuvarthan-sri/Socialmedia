@@ -8,7 +8,7 @@ var bcrypt = require('bcrypt');
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var session = require('express-session');
-var db = mongoose.connect('mongodb://localhost:27017/mydb');
+mongoose.connect('mongodb+srv://vishnuvarthan:<password>thalavishnu98<dbname>vishnuvarthan', { useNewUrlParser: true });
 //var index = require('./routes/index');
 var Account = require('./models/Account');
 var Post = require('./models/Post');

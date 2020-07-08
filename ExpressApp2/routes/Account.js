@@ -2,6 +2,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require("bcrypt");
+mongoose.connect('mongodb+srv://vishnuvarthan:<password>thalavishnu98<dbname>vishnuvarthan', { useNewUrlParser: true });
 // creating a new schema for account details
 var accountSchema = new Schema({
     username: { type: String, required: true, unique: true },
