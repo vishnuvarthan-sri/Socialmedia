@@ -4,7 +4,7 @@ var bcrypt = require("bcrypt");
 ObjectId = Schema.ObjectId;
 var io = require("socket.io")(http);
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/mylib', { useMongoClient: true })
+mongoose.connect('mongodb://localhost:27017/admin', { useMongoClient: true })
     .then(() => console.log('connection succesful'))
     .catch((err) => console.error(err));
 var Posts = new Schema({
