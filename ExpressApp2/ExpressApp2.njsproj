@@ -35,13 +35,13 @@
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
-    <Content Include="views\index.pug" />
+    <Content Include="views\index.ejs" />
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />
     <Content Include="views\login.html">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="views\post.ejs">
+    <Content Include="views\post-detail.ejs">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\signup.html">

@@ -8,13 +8,14 @@ var bcrypt = require('bcrypt');
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var session = require('express-session');
-var db = mongoose.connect('mongodb://localhost:27017/admin');
+var db = mongoose.connect('mongodb://localhost:27017/mydb');
 //var index = require('./routes/index');
 var Account = require('./models/Account');
 var Post = require('./models/Post');
 var app = express();
 
 // view engine setup
+app.engine('ejs', require('ejs').__express);
 app.engine('pug', require('pug').__express);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -79,7 +80,7 @@ app.post('/login', function (req, res) {
 
 // sign up a new account handler
 app.post('/signup', function (req, res) {
-    if (!req.body.username || !req.body.password) {
+    if (!req.body.username || !req.body.password || !req.body.email) {
         return res.render('signup', { title: "signup", message: "Please Enter both username and password" });
     }
     //finding username from account database
@@ -90,7 +91,8 @@ app.post('/signup', function (req, res) {
         else {
             Account.create({
                 username: req.body.username,
-                password: req.body.password
+                password: req.body.password,
+                email: req.body.email
             }, function (error, account) {
                 if (error) return console.log("Error in adding User to Database");
                 else res.redirect('/');
