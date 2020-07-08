@@ -8,16 +8,17 @@ var bcrypt = require('bcrypt');
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var session = require('express-session');
-var db = mongoose.connect('mongodb://localhost:27017/admin');
+var db = mongoose.connect('mongodb://localhost:27017/mylib');
 //var index = require('./routes/index');
 var Account = require('./models/Account');
 var Post = require('./models/Post');
 var app = express();
 
 // view engine setup
+app.engine('ejs', require('ejs').__express);
 app.engine('pug', require('pug').__express);
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.set('view engine', 'pug','ejs');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
