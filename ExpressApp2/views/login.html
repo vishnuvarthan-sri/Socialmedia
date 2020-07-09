@@ -82,6 +82,8 @@
     <form action="/login" method="post">
         <div class="imgcontainer">
             <script>
+import * as e from "express";
+
                 function previewFile() {
                     var preview = document.querySelector('img');
                     var file = document.querySelector('input[type=file]').files[0];
@@ -97,8 +99,14 @@
                         preview.src = "";
                     }
                 }
-            </script>
-            <input type="file" onchange="previewFile()"><br>
+            
+/* END EXTERNAL SOURCE */
+/* BEGIN EXTERNAL SOURCE */
+function name2() {
+previewFile()
+}
+</script>
+            <input type="file" onchange=""><br>
             <img src="" height="200" alt="Image preview...">
         </div>
 
@@ -109,7 +117,24 @@
             <label for="psw"><b>Password</b></label>
             <input type="password" placeholder="Enter Password" name="psw" required>
 
-            <button id="login">Login</button>
+            <button id="login" onclick="click()">Login</button>
+            <script>
+                var button = document.getElementById('login');
+                button.addEventListener('click', function (click) {
+                    if (click.ok) {
+                        window.location.pathname = '/posts/detail/:id';
+                        console.log('button was clicked');
+                    }
+                    fetch('/clicked', { method: 'POST' })
+                        .then(function (response) {
+                            if (response.ok) {
+                                console.log('click was recorded');
+                                return;
+                            }
+                        });
+                });
+                
+            </script>
             <label>
                 <input type="checkbox" checked="checked" name="remember"> Remember me
             </label>

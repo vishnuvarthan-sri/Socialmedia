@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require("bcrypt");
-mongoose.connect('mongodb+srv://vishnuvarthan:<password>thalavishnu98<dbname>vishnuvarthan', { useNewUrlParser: true });
+mongoose.connect('mongodb+srv://vishnuvarthan:<thalavishnu98><vishnuvarthan>', { useMongoClient: true });
 // creating a new schema for account details
 var accountSchema = new Schema({
     username: { type: String, required: true, unique: true },
@@ -10,17 +10,7 @@ var accountSchema = new Schema({
     email: { type: String, required: true },
 });
 
-var button = document.getElementById('login');
-button.addEventListener('click', function (e) {
-    console.log('button was clicked');
-    fetch('/clicked', { method: 'POST' })
-        .then(function (response) {
-            if (response.ok) {
-                console.log('click was recorded');
-                return;
-            }
-        });
-});
+
 
 
 // function called before the create function in post handler of signup
