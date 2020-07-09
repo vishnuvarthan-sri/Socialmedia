@@ -35,9 +35,12 @@
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
-    <Content Include="views\index.ejs" />
+    <Content Include="views\index.html" />
     <Content Include="views\error.pug" />
     <Content Include="views\login.html">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="views\logout.html">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\post-detail.ejs">

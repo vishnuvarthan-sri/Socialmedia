@@ -98,19 +98,19 @@ app.post('/signup', function (req, res) {
         }
     });
 });
-app.get('/index', authenticate,function (req, res) {
-    Post.find({}, function (err, posts) {
+app.get('/index', authenticate, function (req, res) {
+    posts.find({}, function (err, posts) {
         if (err) {
             console.log(err);
         } else {
-            res.render('index', { posts: posts });
+            res.render('/index', { posts: posts });
         }
     });
 });
 
 
 app.get('/posts/detail/:id', function (req, res) {
-    Post.findById(req.params.id, function (err, postDetail) {
+    posts.findById(req.params.id, function (err, postDetail) {
         if (err) {
             console.log(err);
         } else {
