@@ -47,12 +47,12 @@ var authenticate = function (req, res, next) {
 
 
 app.get('/login', function (req, res) {
-    res.sendFile(path.join(__dirname + './login.html'));
+    res.sendFile(path.join(__dirname , './login.html'));
 });
 
 
 app.get('/signup', function (req, res) {
-    res.sendFile(path.join(__dirname + './signup.html'));
+    res.sendFile(path.join(__dirname , './signup.html'));
 });
 
 app.post('/login', function (req, res) {
