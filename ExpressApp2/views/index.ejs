@@ -1,20 +1,20 @@
 <table border="1">
-        <% 
-        if (typeof posts != 'undefined' && posts.length > 0) { 
+	<script>
+        if (typeof posts != 'undefined' || posts.length > 0) { 
                 var srNo = 0;
                 posts.forEach( function ( post ){
-                        srNo = srNo + 1;
-                        %>
+                        srNo = srNo + 1;                       
 <tr>
-    <td><%= srNo %></td>
-<td><%= post.title %></td>
-<td><a href="/posts/detail/<%= post._id %>" title="Post Detail">Detail</a></td>
+    <td>srNO</td>
+<td> post.title </td>
+<td><a href="/posts/detail/:id" title="Post Detail">Detail</a></td>
 
 </tr>
-<% });
+ });
 }
-else {  %>
+else {  
   <tr><td colspan="3"> No Data </td></tr>
-<% } %>
+ } 
+ </script>
 
     </table>

@@ -12,6 +12,12 @@ mongoose.connect('mongodb+srv://vishnuvarthan:<thalavishnu98><vishnuvarthan>', {
 var Account = require('./routes/Account');
 var Post = require('./routes/Post');
 var app = express();
+var server = app.listen(8081, function () {
+    var host = server.address().address
+    var port = server.address().port
+
+    console.log("Example app listening at http://%s:%s", host, port)
+})
 
 // view engine setup
 app.engine('ejs', require('ejs').__express);

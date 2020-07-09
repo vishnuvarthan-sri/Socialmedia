@@ -6,6 +6,7 @@ var io = require("socket.io")(http);
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb+srv://vishnuvarthan:<thalavishnu98><vishnuvarthan>', { useMongoClient: true })
 
+
 var Posts = new Schema({
     title: String,
     description: String,
