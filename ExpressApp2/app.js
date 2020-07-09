@@ -24,13 +24,13 @@ var server = app.listen(8081, function () {
 app.engine('ejs', require('ejs').__express);
 app.engine('pug', require('pug').__express);
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.set('view engine', 'pug','ejs');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'routes')));
 app.use(session({
     secret: 'ssshhhhh',
     resave: false,
@@ -80,7 +80,7 @@ app.post('/login', function (req, res) {
 // sign up a new account handler
 app.post('/signup', function (req, res) {
     if (!req.body.username || !req.body.password || !req.body.email) {
-        return res.render('signup', { title: "signup", message: "Please Enter both username and password" });
+        return res.render('signup', { title: "signup", message: "Please Enter both username, password and email" });
     }
     //finding username from account database
     Account.findOne({ username: req.body.username }, function (error, account) {
