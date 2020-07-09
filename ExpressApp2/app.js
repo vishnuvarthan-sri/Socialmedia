@@ -99,7 +99,7 @@ app.post('/signup', function (req, res) {
         }
     });
 });
-app.get('/index', authenticate, function (req, res) {
+app.get('/', authenticate, function (req, res) {
     posts.find({}, function (err, posts) {
         if (err) {
             console.log(err);
@@ -110,7 +110,7 @@ app.get('/index', authenticate, function (req, res) {
 });
 
 
-app.get('/posts/detail/:id', function (req, res) {
+app.post('/posts/detail/:id', function (req, res) {
     posts.findById(req.params.id, function (err, postDetail) {
         if (err) {
             console.log(err);
