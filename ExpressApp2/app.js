@@ -9,9 +9,8 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var session = require('express-session');
 mongoose.connect('mongodb+srv://vishnuvarthan:<password>thalavishnu98<dbname>vishnuvarthan', { useNewUrlParser: true });
-//var index = require('./routes/index');
-var Account = require('./models/Account');
-var Post = require('./models/Post');
+var Account = require('./routes/Account');
+var Post = require('./routes/Post');
 var app = express();
 
 // view engine setup
