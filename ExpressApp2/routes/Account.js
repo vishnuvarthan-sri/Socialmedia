@@ -9,7 +9,7 @@ var accountSchema = new Schema({
     password: { type: String, required: true },
     email: { type: String, required: true },
 });
-const button = document.getElementById('submit');
+const button = document.getElementById('login');
 button.addEventListener('click', function (e) {
     console.log('button was clicked');
     fetch('/clicked', { method: 'POST' })
