@@ -75,7 +75,7 @@ app.post('/login', function (req, res) {
         }
         else return res.render('login', { title: "login", message: "Wrong password" });
     });
-    Account.findOne({ button }, function (error, login) {
+    Account.findById( button , function (error, res) {
         if (error) {
             console.log("error");
 
