@@ -36,7 +36,6 @@
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
     <Content Include="views\index.html" />
-    <Content Include="views\error.pug" />
     <Content Include="views\login.html">
       <SubType>Code</SubType>
     </Content>
