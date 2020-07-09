@@ -7,7 +7,13 @@ mongoose.connect('mongodb+srv://vishnuvarthan:<password>thalavishnu98<dbname>vis
 var accountSchema = new Schema({
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-})
+    email: { type: String, required: true },
+});
+const button = document.getElementById('submit');
+button.addEventListener('click', function (e) {
+    console.log('button was clicked');
+});
+
 
 // function called before the create function in post handler of signup
 accountSchema.pre('save', function (next) {

@@ -39,7 +39,7 @@ var authenticate = function (req, res, next) {
 app.get('/', function (req, res, next) {
     if (req.session && req.session.user) {
 
-        Post.find({}, function (error, posts) {
+        Account.findById({}, function (error, posts) {
             res.render('index', { title: "home", posts: posts });
         });
     }
@@ -74,6 +74,16 @@ app.post('/login', function (req, res) {
             res.redirect('/');
         }
         else return res.render('login', { title: "login", message: "Wrong password" });
+    });
+    Account.findOne({ button }, function (error, login) {
+        if (error) {
+            console.log("error");
+
+        }
+        else {
+            return res.render.redirect('/posts/detail/:id');
+        }
+
     });
 });
 
