@@ -1,12 +1,15 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var bcrypt = require("bcrypt");
 ObjectId = Schema.ObjectId;
 var io = require("socket.io")(http);
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb+srv://vishnuvarthan:<thalavishnu98><vishnuvarthan>', { useMongoClient: true })
-    .then(() => console.log('connection succesful'))
-    .catch((err) => console.error(err));
+var client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+    const collection = client.db("test").collection("devices");
+    // perform actions on the collection object
+    client.close();
+});
 var Posts = new Schema({
     title: String,
     description: String,
