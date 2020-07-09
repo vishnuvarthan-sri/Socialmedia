@@ -36,15 +36,7 @@ var authenticate = function (req, res, next) {
     return res.redirect('/login');
 }
 
-app.get('/', function (req, res, next) {
-    if (req.session && req.session.user) {
 
-        Account.findById({}, function (error, posts) {
-            res.render('index', { title: "home", posts: posts });
-        });
-    }
-    else res.render('welcome', { title: "Social Media" });
-});
 
 
 
