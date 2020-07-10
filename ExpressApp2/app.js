@@ -32,16 +32,16 @@ var authenticate = function (req, res, next) {
     return res.redirect('/login');
 }
 
-app.get('/views', function (req, res) {
-    res.sendFile(path.join(__dirname + 'login.html'));
+app.get('/login.html', function (req, res) {
+    res.sendFile(path.join(__dirname +"/"+ "login.html"));
 });
 
 
-app.get('/views', function (req, res) {
-    res.sendFile(path.join(__dirname + 'signup.html'));
+app.get('/signup.html', function (req, res) {
+    res.sendFile(path.join(__dirname +"/"+ "signup.html"));
 });
 
-app.post('/views/login', function (req, res) {
+app.post('/login', function (req, res) {
     if (!req.body.username || !req.body.password) {
         return res.render('login', { title: "login", message: "Please Enter both username and password" });
     }
@@ -64,7 +64,7 @@ app.post('/views/login', function (req, res) {
 
 
 // sign up a new account handler
-app.post('/views/signup', function (req, res) {
+app.post('/signup', function (req, res) {
     if (!req.body.username || !req.body.password || !req.body.email) {
         return res.render('signup', { title: "signup", message: "Please Enter both username, password and email" });
     }
@@ -85,7 +85,7 @@ app.post('/views/signup', function (req, res) {
         }
     });
 }); 
-app.get('/views', authenticate, function (req, res) {
+app.get('/post-detail.html', authenticate, function (req, res) {
     Post.find({}, function (err, posts) {
         if (err) {
             console.log(err);
@@ -96,7 +96,7 @@ app.get('/views', authenticate, function (req, res) {
 });
 
 
-app.post('/views/posts-detail/:id', function (req, res) {
+app.post('/posts/detail/:id', function (req, res) {
     Post.findById(req.params.id, function (err, postDetail) {
         if (err) {
             console.log(err);
