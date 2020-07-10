@@ -75,6 +75,7 @@ app.post('/login', function (req, res) {
     });
     
 });
+server.listen(8081);
 
 
 // sign up a new account handler
@@ -98,7 +99,7 @@ app.post('/signup', function (req, res) {
             });
         }
     });
-});
+}); server.listen(8081);
 app.get('/', authenticate, function (req, res) {
     Post.find({}, function (err, posts) {
         if (err) {
@@ -120,7 +121,7 @@ app.post('/posts/detail/:id', function (req, res) {
             });
         }
     });
-});
+}); server.listen(8081);
 
 
 //logout request
@@ -128,7 +129,7 @@ app.get('/logout', function (req, res) {
     req.session.destroy();
     res.redirect("/");
 });
-
+server.listen(8081);
 
 
 
