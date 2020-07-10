@@ -27,18 +27,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'views')));
 
-var authenticate = function (req, res, next) {
-    if (req.session && req.session.user) return next();
-    return res.redirect('/login');
-}
 
 app.get('/login.html', function (req, res) {
-    res.sendFile(path.join(__dirname +"/"+ "login.html"));
+    res.sendFile(__dirname +"/login.html");
 });
 
 
 app.get('/signup.html', function (req, res) {
-    res.sendFile(path.join(__dirname +"/"+ "signup.html"));
+    res.sendFile(__dirname +"/signup.html");
 });
 
 app.post('/login', function (req, res) {
@@ -85,6 +81,10 @@ app.post('/signup', function (req, res) {
         }
     });
 }); 
+var authenticate = function (req, res, next) {
+    if (req.session && req.session.user) return next();
+    return res.redirect('/login');
+}
 app.get('/post-detail.html', authenticate, function (req, res) {
     Post.find({}, function (err, posts) {
         if (err) {
@@ -115,9 +115,9 @@ app.get('/views/logout', function (req, res) {
     res.redirect("/");
 });
 
+var server = app.listen(8000, function () {
+    var host = server.address().address
+    var port = server.address().port
+    console.log("Example app listening at http://%s:%s", host, port)
+})  
 
-app.set('port', process.env.PORT || 3000)
-
-var server = app.listen(app.get('port'), function () {
-    debug('Express server listening on port ' + server.address().port)
-})
