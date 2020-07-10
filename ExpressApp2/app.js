@@ -115,7 +115,7 @@ app.post('/views/posts-detail/:id', function (req, res) {
 
 
 //logout request
-app.get('/logout', function (req, res) {
+app.get('/views/logout', function (req, res) {
     req.session.destroy();
     res.redirect("/");
 });
