@@ -7,8 +7,8 @@
 
 <h2><%= postDetail.title %></h2>
 <p><%= postDetail.description %></p>
-<span><%= postDetail.by %></span></br>
-<span><%= postDetail.url %></span></br>
+<span><%= postDetail.by %></span><br>
+<span><%= postDetail.url %></span><br>
 
 <div class="comments">
         <% 
@@ -21,7 +21,7 @@
 
 </div>
 
-<textarea id="comment" rows="3" cols="50"></textarea></br>
+<textarea id="comment" rows="3" cols="50"></textarea><br>
 <input type="hidden" id="postId" value="<%= postId %>">
 <input type="submit" value="Send" id="send"> 
 
