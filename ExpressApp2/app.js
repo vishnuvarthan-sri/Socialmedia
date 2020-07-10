@@ -12,14 +12,8 @@ mongoose.connect('mongodb+srv://vishnuvarthan:<thalavishnu98><vishnuvarthan>', {
 var Account = require('./routes/Account');
 var Post = require('./routes/Post');
 var app = express();
-
-
-var server = app.listen(8081, function () {
-    var host = server.address().address
-    var port = server.address().port
-
-    console.log("Example app listening at http://%s:%s", host, port)
-})
+var port = 3000;
+app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
 
 // view engine setup
 app.engine('ejs', require('ejs').__express);
@@ -129,7 +123,7 @@ app.get('/logout', function (req, res) {
     req.session.destroy();
     res.redirect("/");
 });
-server.listen(8081);
+
 
 
 
