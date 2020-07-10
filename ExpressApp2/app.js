@@ -1,4 +1,5 @@
 var express = require('express');
+var debug = require('debug')('app4')
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -13,8 +14,6 @@ var Account = require('./routes/Account');
 var Post = require('./routes/Post');
 var Comments = require('./routes/coments');
 var app = express();
-var port = 3000;
-app.listen(port, () => console.log(`Example app listening at localhost:${port}`));
 
 // view engine setup
 app.engine('ejs', require('ejs').__express);
@@ -117,4 +116,8 @@ app.get('/views/logout', function (req, res) {
 });
 
 
-module.exports = app;
+app.set('port', process.env.PORT || 3000)
+
+var server = app.listen(app.get('port'), function () {
+    debug('Express server listening on port ' + server.address().port)
+})

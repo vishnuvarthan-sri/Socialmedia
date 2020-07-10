@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app"
+    "start": "node app.js"
   },
   "description": "ExpressApp2",
   "author": {
@@ -15,7 +15,7 @@
     "connect-mongo": "^3.2.0",
     "cookie-parser": "^1.4.0",
     "cookie-session": "^1.4.0",
-    "debug": "^2.2.0",
+    "debug": "^2.6.9",
     "ejs": "^3.1.3",
     "express": "^4.14.0",
     "express-session": "^1.17.1",
