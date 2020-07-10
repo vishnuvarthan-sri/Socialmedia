@@ -13,6 +13,7 @@ var Account = require('./routes/Account');
 var Post = require('./routes/Post');
 var app = express();
 
+
 var server = app.listen(8081, function () {
     var host = server.address().address
     var port = server.address().port
@@ -47,12 +48,12 @@ var authenticate = function (req, res, next) {
 
 
 app.get('/login', function (req, res) {
-    res.sendFile(path.join(__dirname + 'login.html'));
+    res.sendFile(__dirname ,'login.html');
 });
 
 
 app.get('/signup', function (req, res) {
-    res.sendFile(path.join(__dirname + 'signup.html'));
+    res.sendFile(__dirname , 'signup.html');
 });
 
 app.post('/login', function (req, res) {
@@ -75,7 +76,6 @@ app.post('/login', function (req, res) {
     });
     
 });
-server.listen(8081);
 
 
 // sign up a new account handler
@@ -99,7 +99,7 @@ app.post('/signup', function (req, res) {
             });
         }
     });
-}); server.listen(8081);
+}); 
 app.get('/', authenticate, function (req, res) {
     Post.find({}, function (err, posts) {
         if (err) {
@@ -121,7 +121,7 @@ app.post('/posts/detail/:id', function (req, res) {
             });
         }
     });
-}); server.listen(8081);
+}); 
 
 
 //logout request
