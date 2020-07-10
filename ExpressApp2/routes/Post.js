@@ -13,18 +13,7 @@ var Posts = new  Schema({
     by: String,
     url: String
 });
-var Comments = new Schema({
-    comment: String,
-    postId: String
-});
-io.on('connection', function (socket) {
-    socket.on('comment', function (data) {
-        var commentData = new Comments(data);
-        commentData.save();
-        socket.broadcast.emit('comment', data);
-    });
 
-});
 io.on('connection', function (socket){
     socket.on('post', function (data){
         var postData = new Posts(data);
@@ -34,4 +23,4 @@ io.on('connection', function (socket){
 });
 
 module.exports = mongoose.model('post', Posts);
-module.exports = mongoose.model('Comments', Comments);
+

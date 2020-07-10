@@ -30,6 +30,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="app.js" />
+    <Content Include="routes\coments.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="routes\Post.js" />
     <Content Include="routes\Account.js" />
     <Content Include="package.json" />
