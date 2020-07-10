@@ -13,7 +13,7 @@ var Account = require('./routes/Account');
 var Post = require('./routes/Post');
 var app = express();
 var port = 3000;
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
+app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
 
 // view engine setup
 app.engine('ejs', require('ejs').__express);
@@ -119,7 +119,6 @@ app.get('/views/logout', function (req, res) {
     req.session.destroy();
     res.redirect("/");
 });
-
 
 
 module.exports = app;
