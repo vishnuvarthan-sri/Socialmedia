@@ -25,7 +25,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'routes')));
+app.use(express.static(path.join(__dirname, 'views')));
 app.use(session({
     secret: 'ssshhhhh',
     resave: false,
@@ -41,13 +41,13 @@ var authenticate = function (req, res, next) {
 
 
 
-app.get('/login', function (req, res) {
-    res.sendFile(__dirname ,'login.html');
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname + 'login.html'));
 });
 
 
-app.get('/signup', function (req, res) {
-    res.sendFile(__dirname , 'signup.html');
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname + 'signup.html'));
 });
 
 app.post('/login', function (req, res) {
