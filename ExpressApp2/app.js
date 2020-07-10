@@ -13,7 +13,7 @@ var Account = require('./routes/Account');
 var Post = require('./routes/Post');
 var app = express();
 var port = 3000;
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
+app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
 
 // view engine setup
 app.engine('ejs', require('ejs').__express);
@@ -37,20 +37,16 @@ var authenticate = function (req, res, next) {
     return res.redirect('/login');
 }
 
-
-
-
-
-app.get('/', function (req, res) {
+app.get('/views', function (req, res) {
     res.sendFile(path.join(__dirname + 'login.html'));
 });
 
 
-app.get('/', function (req, res) {
+app.get('/views', function (req, res) {
     res.sendFile(path.join(__dirname + 'signup.html'));
 });
 
-app.post('/login', function (req, res) {
+app.post('/views/login', function (req, res) {
     if (!req.body.username || !req.body.password) {
         return res.render('login', { title: "login", message: "Please Enter both username and password" });
     }
@@ -73,7 +69,7 @@ app.post('/login', function (req, res) {
 
 
 // sign up a new account handler
-app.post('/signup', function (req, res) {
+app.post('/views/signup', function (req, res) {
     if (!req.body.username || !req.body.password || !req.body.email) {
         return res.render('signup', { title: "signup", message: "Please Enter both username, password and email" });
     }
@@ -94,18 +90,18 @@ app.post('/signup', function (req, res) {
         }
     });
 }); 
-app.get('/', authenticate, function (req, res) {
+app.get('/views', authenticate, function (req, res) {
     Post.find({}, function (err, posts) {
         if (err) {
             console.log(err);
         } else {
-            res.render('/index', { posts: posts });
+            res.render('/index.html', { posts: posts });
         }
     });
 });
 
 
-app.post('/posts/detail/:id', function (req, res) {
+app.post('/views/posts-detail/:id', function (req, res) {
     Post.findById(req.params.id, function (err, postDetail) {
         if (err) {
             console.log(err);
@@ -123,8 +119,7 @@ app.get('/logout', function (req, res) {
     req.session.destroy();
     res.redirect("/");
 });
-
-
+.listen(8081);
 
 
 
