@@ -14,12 +14,6 @@ var Account = require('../routes/Account');
 var Post = require('../routes/Post');
 var Comments = require('../routes/coments');
 var app = express();
-var server = app.listen(5000, function () {
-    var host = server.address().address
-    var port = server.address().port
-    console.log("Example app listening at http://%s:%s", host, port)
-})  
-
 
 // view engine setup
 app.engine('ejs', require('ejs').__express);
@@ -31,14 +25,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use('/views', express.static(path.join(__dirname, '/views')))
+app.use('/views', express.static(path.join(__dirname, './views')))
 
 app.get('/signup', function (req, res) {
     res.sendFile(path.join(__dirname + "/signup.html"));
 });
 
 // sign up a new account handler
-app.post('/signup', function (req, res) {
+app.get('/signup', function (req, res) {
     if (!req.body.username && !req.body.password && !req.body.email) {
         return res.sendFile(__dirname + "/signup.html", { title: "signup", message: "Please Enter username, password and email" });
     }
@@ -66,7 +60,7 @@ app.get('/login', function (req, res) {
     res.sendFile(path.join(__dirname + "/login.html"));
 });
 
-app.post('/login', function (req, res) {
+app.get('/login', function (req, res) {
     if (!req.body.username && !req.body.password) {
         return res.sendFile(__dirname + "/login.html", { title: "login", message: "Please Enter both username and password" });
     }
@@ -98,7 +92,7 @@ app.get('/',  function (req, res) {
 });
 
 
-app.post('/posts/detail/:id', function (req, res) {
+app.get('/posts/detail/:id', function (req, res) {
     Post.findById(req.params.id, function (err, postDetail) {
         if (err) {
             console.log(err);
@@ -116,5 +110,11 @@ app.get('/logout', function (req, res) {
     req.session.destroy();
     res.redirect(__dirname + "/views/login.html");
 });
+var server = app.listen(5000, function () {
+    var host = server.address().address;
+    var port = server.address().port;
+    console.log("Example app listening at http://%s:%s", host, port);
+})  
+
 
 
