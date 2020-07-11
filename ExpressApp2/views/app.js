@@ -61,7 +61,7 @@ app.post('/', function (req, res) {
                 email: req.body.email
             }, function (error, account) {
                 if (error) return console.log("Error in adding User to Database");
-                else res.redirect('/login');
+                else res.redirect('/');
             });
         }
     });
@@ -85,7 +85,7 @@ app.post('/', function (req, res) {
             console.log("saved");
             console.log(req.session.user.username);
             console.log(req.session);
-            res.redirect('/signup');
+            res.redirect('/');
         }
         else return res.sendFile(__dirname + "/login.html", { title: "login", message: "Wrong password" });
     });
