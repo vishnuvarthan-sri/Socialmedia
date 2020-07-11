@@ -31,6 +31,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'routes')));
 app.use(express.static(path.join(__dirname, 'views')));
 
 
@@ -45,12 +46,12 @@ app.get('/', function (req, res) {
 
 app.post('/login',  function (req, res) {
     if (!req.body.username || !req.body.password) {
-        return res.render('login', { title: "login", message: "Please Enter both username and password" });
+        return res.render('/login.html', { title: "login", message: "Please Enter both username and password" });
     }
 
     Account.findOne({ username: req.body.username }, function (error, account) {
         if (error) return console.log("error in accessing the database");
-        else if (!account) return res.render('/login', { title: "login", message: "Username doesnot Exists" });
+        else if (!account) return res.render('/login.html', { title: "login", message: "Username doesnot Exists" });
         if (account.compare(req.body.password)) {
             req.session.user = account;
             req.session.save();
@@ -59,7 +60,7 @@ app.post('/login',  function (req, res) {
             console.log(req.session);
             res.redirect('/');
         }
-        else return res.render('login', { title: "login", message: "Wrong password" });
+        else return res.render('/login.html', { title: "login", message: "Wrong password" });
     });
     
 });
@@ -68,11 +69,11 @@ app.post('/login',  function (req, res) {
 // sign up a new account handler
 app.post('/signup', function (req, res) {
     if (!req.body.username || !req.body.password || !req.body.email) {
-        return res.render('signup', { title: "signup", message: "Please Enter both username, password and email" });
+        return res.render('/signup.html', { title: "signup", message: "Please Enter both username, password and email" });
     }
     //finding username from account database
     Account.findOne({ username: req.body.username }, function (error, account) {
-        if (account) return res.render('signup', { title: "signup", message: "Username Already Exists" });
+        if (account) return res.render('/signup.html', { title: "signup", message: "Username Already Exists" });
         else if (error) return console.log("error in accessing the database");
         // creating a new account
         else {
