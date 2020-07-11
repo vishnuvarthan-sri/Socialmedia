@@ -45,7 +45,7 @@ app.get('/', function (req, res) {
 });
 
 // sign up a new account handler
-app.post('/signup', function (req, res) {
+app.post('/', function (req, res) {
     if (!req.body.username && !req.body.password && !req.body.email) {
         return res.render(__dirname + "/signup.html", { title: "signup", message: "Please Enter username, password and email" });
     }
