@@ -33,6 +33,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'routes')));
 app.use(express.static(path.join(__dirname, 'views')));
+var authenticate = function (req, res, next) {
+    if (req.session && req.session.user) return next();
+    return res.redirect(__dirname + "/login.html");
+}
 
 
 app.get('/', function (req, res) {
@@ -53,7 +57,7 @@ app.post('/login',  function (req, res) {
             console.log("saved");
             console.log(req.session.user.username);
             console.log(req.session);
-            res.redirect('/');
+            res.redirect('/signup');
         }
         else return res.sendFile(__dirname + "/login.html", { title: "login", message: "Wrong password" });
     });
@@ -81,15 +85,12 @@ app.post('/signup', function (req, res) {
                 email: req.body.email
             }, function (error, account) {
                 if (error) return console.log("Error in adding User to Database");
-                else res.redirect('/');
+                else res.redirect('/login');
             });
         }
     });
 }); 
-var authenticate = function (req, res, next) {
-    if (req.session && req.session.user) return next();
-    return res.redirect(__dirname + "/login.html");
-}
+
 app.get('/', authenticate, function (req, res) {
     Post.find({}, function (err, posts) {
         if (err) {
