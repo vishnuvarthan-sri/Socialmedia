@@ -33,7 +33,7 @@ app.get('/signup', function (req, res) {
 
 // sign up a new account handler
 app.get('/signup', function (req, res) {
-    if (!req.body.username && !req.body.password && !req.body.email) {
+    if (!req.body.username || !req.body.password || !req.body.email) {
         return res.sendFile(__dirname + "/signup.html", { title: "signup", message: "Please Enter username, password and email" });
     }
     //finding username from account database
@@ -61,7 +61,7 @@ app.get('/login', function (req, res) {
 });
 
 app.get('/login', function (req, res) {
-    if (!req.body.username && !req.body.password) {
+    if (!req.body.username || !req.body.password) {
         return res.sendFile(__dirname + "/login.html", { title: "login", message: "Please Enter both username and password" });
     }
 
