@@ -29,7 +29,7 @@ app.set('view engine', 'pug','ejs');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/routes')));
 app.use('/views', express.static(path.join(__dirname, '/views')))
@@ -40,12 +40,12 @@ var authenticate = function (req, res, next) {
 } 
 
 
-app.get('/', function (req, res) {
+app.get('/signup', function (req, res) {
     res.sendFile(path.join(__dirname + "/signup.html"));
 });
 
 // sign up a new account handler
-app.post('/views', function (req, res) {
+app.post('/signup', function (req, res) {
     if (!req.body.username && !req.body.password && !req.body.email) {
         return res.sendFile(__dirname + "/signup.html", { title: "signup", message: "Please Enter username, password and email" });
     }
@@ -69,11 +69,11 @@ app.post('/views', function (req, res) {
     });
 }); 
 
-app.get('/', function (req, res) {
+app.get('/login', function (req, res) {
     res.sendFile(path.join(__dirname + "/login.html"));
 });
 
-app.post('/views', function (req, res) {
+app.post('/login', function (req, res) {
     if (!req.body.username && !req.body.password) {
         return res.sendFile(__dirname + "/login.html", { title: "login", message: "Please Enter both username and password" });
     }
