@@ -56,7 +56,7 @@ app.post('/signup', function (req, res) {
             }, function (error, account) {
                     if (error) return console.log("Error in adding User to Database");
                     else (account) 
-                        res.redirect('/views/login.html');
+                    res.redirect(__dirname + "/views/login.html");
                     
             });
         }
@@ -115,7 +115,7 @@ app.post('/posts/detail/:id', function (req, res) {
 //logout request
 app.get('/logout', function (req, res) {
     req.session.destroy();
-    res.redirect("/views/login.html");
+    res.redirect(__dirname + "/views/login.html");
 });
 
 
