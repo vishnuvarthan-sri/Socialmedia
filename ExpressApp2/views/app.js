@@ -88,7 +88,7 @@ app.post('/login', function (req, res) {
 
 });
 
-app.get('/', authenticate, function (req, res) {
+app.get('/',  function (req, res) {
     Post.find({}, function (err, posts) {
         if (err) {
             console.log(err);
