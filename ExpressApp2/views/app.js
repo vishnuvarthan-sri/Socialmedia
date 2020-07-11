@@ -45,9 +45,9 @@ app.get('/signup', function (req, res) {
 });
 
 // sign up a new account handler
-app.post('/', function (req, res) {
-    if (!req.body.username || !req.body.password || !req.body.email) {
-        return res.render(__dirname + "/signup.html", { title: "signup", message: "Please Enter both username, password and email" });
+app.post('/signup', function (req, res) {
+    if (!req.body.username && !req.body.password && !req.body.email) {
+        return res.render(__dirname + "/signup.html", { title: "signup", message: "Please Enter username, password and email" });
     }
     //finding username from account database
     Account.findOne({ username: req.body.username }, function (error, account) {
@@ -60,9 +60,10 @@ app.post('/', function (req, res) {
                 password: req.body.password,
                 email: req.body.email
             }, function (error, account) {
-                if (error) return console.log("Error in adding User to Database");
-                else
-                    res.redirect('/login');
+                    if (error) return console.log("Error in adding User to Database");
+                    else (account) 
+                        res.redirect('/login');
+                    
             });
         }
     });
@@ -72,8 +73,8 @@ app.get('/login', function (req, res) {
     res.render(__dirname + "/login.html");
 });
 
-app.post('/', function (req, res) {
-    if (!req.body.username || !req.body.password) {
+app.post('/login', function (req, res) {
+    if (!req.body.username && !req.body.password) {
         return res.render(__dirname + "/login.html", { title: "login", message: "Please Enter both username and password" });
     }
 
