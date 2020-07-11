@@ -24,9 +24,8 @@ var server = app.listen(5000, function () {
 // view engine setup
 app.engine('ejs', require('ejs').__express);
 app.engine('pug', require('pug').__express);
-app.engine('html', require('html').__express);
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug','ejs','html');
+app.set('view engine', 'pug','ejs');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -47,12 +46,12 @@ app.get('/', function (req, res) {
 
 app.post('/login',  function (req, res) {
     if (!req.body.username || !req.body.password) {
-        return res.sendFile('/login.html', { title: "login", message: "Please Enter both username and password" });
+        return res.sendFile(__dirname +"/login.html", { title: "login", message: "Please Enter both username and password" });
     }
 
     Account.findOne({ username: req.body.username }, function (error, account) {
         if (error) return console.log("error in accessing the database");
-        else if (!account) return res.sendFile('/login.html', { title: "login", message: "Username doesnot Exists" });
+        else if (!account) return res.sendFile(__dirname + "/login.html", { title: "login", message: "Username doesnot Exists" });
         if (account.compare(req.body.password)) {
             req.session.user = account;
             req.session.save();
@@ -61,7 +60,7 @@ app.post('/login',  function (req, res) {
             console.log(req.session);
             res.redirect('/');
         }
-        else return res.sendFile('/login.html', { title: "login", message: "Wrong password" });
+        else return res.sendFile(__dirname + "/login.html", { title: "login", message: "Wrong password" });
     });
     
 });
@@ -70,11 +69,11 @@ app.post('/login',  function (req, res) {
 // sign up a new account handler
 app.post('/signup', function (req, res) {
     if (!req.body.username || !req.body.password || !req.body.email) {
-        return res.sendFile('/signup.html', { title: "signup", message: "Please Enter both username, password and email" });
+        return res.sendFile(__dirname + "/signup.html", { title: "signup", message: "Please Enter both username, password and email" });
     }
     //finding username from account database
     Account.findOne({ username: req.body.username }, function (error, account) {
-        if (account) return res.sendFile('/signup.html', { title: "signup", message: "Username Already Exists" });
+        if (account) return res.sendFile(__dirname + "/signup.html", { title: "signup", message: "Username Already Exists" });
         else if (error) return console.log("error in accessing the database");
         // creating a new account
         else {
@@ -91,14 +90,14 @@ app.post('/signup', function (req, res) {
 }); 
 var authenticate = function (req, res, next) {
     if (req.session && req.session.user) return next();
-    return res.redirect('/login');
+    return res.redirect(__dirname + "/login.html");
 }
 app.get('/', authenticate, function (req, res) {
     Post.find({}, function (err, posts) {
         if (err) {
             console.log(err);
         } else {
-            res.sendFile('/index.html', { posts: posts });
+            res.sendFile(__dirname + "/index.html", { posts: posts });
         }
     });
 });
@@ -118,7 +117,7 @@ app.post('/posts/detail/:id', function (req, res) {
 
 
 //logout request
-app.get('/views/logout', function (req, res) {
+app.get('/logout', function (req, res) {
     req.session.destroy();
     res.redirect("/");
 });
