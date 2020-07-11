@@ -115,24 +115,21 @@ previewFile()
 
             <label for="psw"><b>Password</b></label>
             <input type="password" placeholder="Enter Password" name="psw" required>
+            
 
-            <button id="login" onclick="click()">Login</button>
+            <button id="login" onclick="button()">Login</button>
+            
             <script>
-                var button = document.getElementById('login');
-                button.addEventListener('click', function (click) {
-                    if (click.ok) {
-                        window.location.pathname = '/posts/detail/:id';
-                        console.log('button was clicked');
-                    }
-                    fetch('/clicked', { method: 'POST' })
-                        .then(function (response) {
-                            if (response.ok) {
-                                console.log('click was recorded');
-                                return;
-                            }
-                        });
-                });
+                function button() {
+                    window.location.pathname('/posts/detail/:id')
+                }
                 
+            </script>
+            <button id="signup" onclick="signup()">signup</button>
+            <script>
+                function signup() {
+                    window.location.pathname('/signup')
+                }
             </script>
             <label>
                 <input type="checkbox" checked="checked" name="remember"> Remember me

@@ -39,11 +39,6 @@ app.get('/', function (req, res) {
     res.sendFile(__dirname +"/login.html");
 });
 
-
-app.get('/', function (req, res) {
-    res.sendFile(__dirname +"/signup.html");
-});
-
 app.post('/login',  function (req, res) {
     if (!req.body.username || !req.body.password) {
         return res.sendFile(__dirname +"/login.html", { title: "login", message: "Please Enter both username and password" });
@@ -65,6 +60,9 @@ app.post('/login',  function (req, res) {
     
 });
 
+app.get('/', function (req, res) {
+    res.sendFile(__dirname + "/signup.html");
+});
 
 // sign up a new account handler
 app.post('/signup', function (req, res) {
