@@ -28,7 +28,7 @@ app.use(cookieParser());
 app.use('/views', express.static(path.join(__dirname, './views')))
 
 app.get('/signup', function (req, res) {
-    res.sendFile(path.join(__dirname + "/signup.html"));
+    res.sendFile(__dirname + "/signup.html");
 });
 
 // sign up a new account handler
@@ -57,7 +57,7 @@ app.get('/signup', function (req, res) {
 }); 
 
 app.get('/login', function (req, res) {
-    res.sendFile(path.join(__dirname + "/login.html"));
+    res.sendFile(__dirname + "/login.html");
 });
 
 app.get('/login', function (req, res) {
