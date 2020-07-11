@@ -10,9 +10,9 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var session = require('express-session');
 mongoose.connect('mongodb+srv://vishnuvarthan:<thalavishnu98><vishnuvarthan>', { useMongoClient: true });
-var Account = require('./routes/Account');
-var Post = require('./routes/Post');
-var Comments = require('./routes/coments');
+var Account = require('../routes/Account');
+var Post = require('../routes/Post');
+var Comments = require('../routes/coments');
 var app = express();
 var server = app.listen(5000, function () {
     var host = server.address().address
@@ -43,14 +43,14 @@ app.get('/', function (req, res) {
     res.sendFile(__dirname +"/signup.html");
 });
 
-app.post('/login', async, function (req, res) {
+app.post('/login',  function (req, res) {
     if (!req.body.username || !req.body.password) {
         return res.render('login', { title: "login", message: "Please Enter both username and password" });
     }
 
     Account.findOne({ username: req.body.username }, function (error, account) {
         if (error) return console.log("error in accessing the database");
-        else if (!account) return res.render('login', { title: "login", message: "Username doesnot Exists" });
+        else if (!account) return res.render('/login', { title: "login", message: "Username doesnot Exists" });
         if (account.compare(req.body.password)) {
             req.session.user = account;
             req.session.save();
@@ -66,7 +66,7 @@ app.post('/login', async, function (req, res) {
 
 
 // sign up a new account handler
-app.post('/signup',async, function (req, res) {
+app.post('/signup', function (req, res) {
     if (!req.body.username || !req.body.password || !req.body.email) {
         return res.render('signup', { title: "signup", message: "Please Enter both username, password and email" });
     }
