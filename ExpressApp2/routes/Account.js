@@ -6,7 +6,7 @@ mongoose.connect('mongodb+srv://vishnuvarthan:<thalavishnu98><vishnuvarthan>', {
 
 // creating a new schema for account details
 var accountSchema = new Schema({
-    username: { type: String, required: true, unique: true },
+    uname: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     email: { type: String, required: true },
 });

@@ -14,6 +14,12 @@ var Account = require('../routes/Account');
 var Post = require('../routes/Post');
 var Comments = require('../routes/coments');
 var app = express();
+var server = app.listen(5000, function () {
+    var host = server.address().address
+    var port = server.address().port
+    console.log("Example app listening at http://%s:%s", host, port)
+})  
+
 
 // view engine setup
 app.engine('ejs', require('ejs').__express);
@@ -23,76 +29,77 @@ app.set('view engine', 'pug','ejs');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use('/views', express.static(path.join(__dirname, './views')))
+app.use(express.static(path.join(__dirname, '/routes')));
+app.use('/views', express.static(path.join(__dirname, '/views')))
 
 app.get('/signup', function (req, res) {
-    res.sendFile(__dirname + "/signup.html");
+    res.sendFile(path.join(__dirname + "/signup.html"));
 });
 
 // sign up a new account handler
-app.get('/signup', function (req, res) {
-    if (!req.body.username || !req.body.password || !req.body.email) {
-        return res.sendFile(__dirname + "/signup.html", { title: "signup", message: "Please Enter username, password and email" });
+app.post('/signup', function (req, res) {
+    if (!req.body.uname || !req.body.password || !req.body.email) {
+        return res.sendFile(path.join(__dirname+"/signup.html", { title: "signup", message: "Please Enter username, password and email" }));
     }
-    //finding username from account database
-    Account.findOne({ username: req.body.username }, function (error, account) {
-        if (account) return res.sendFile(__dirname + "/signup.html", { title: "signup", message: "Username Already Exists" });
-        else if (error) return console.log("error in accessing the database");
-        // creating a new account
-        else {
-            Account.create({
-                username: req.body.username,
-                password: req.body.password,
-                email: req.body.email
-            }, function (error, account) {
-                    if (error) return console.log("Error in adding User to Database");
-                    else (account) 
-                    res.redirect(__dirname + "/views/login.html");
-                    
-            });
-        }
+    Account.create({
+        uname: req.body.uname,
+        password: req.body.password,
+        email: req.body.email
+    }, function (error, account) {
+        if (error) return console.log("Error in adding User to Database");
+            else (account)
+            console.log("thank you for signing up");
     });
-}); 
+    Account.findOne({ uname: req.body.uname }, function
+        (err, account) {
+        if (err) res.redirect(path.join(__dirname+"/signup.html", { messsage: "there is already an account" }));
+        else (account)
+        res.redirect(path.join(__dirname +"/login"));
+
+    });
+
+});
+    
+  
+ 
 
 app.get('/login', function (req, res) {
-    res.sendFile(__dirname + "/login.html");
+    res.sendFile(path.join(__dirname + "/login.html"));
 });
 
-app.get('/login', function (req, res) {
-    if (!req.body.username || !req.body.password) {
-        return res.sendFile(__dirname + "/login.html", { title: "login", message: "Please Enter both username and password" });
+app.post('/login', function (req, res) {
+    if (!req.body.uname || !req.body.password) {
+        return res.sendFile(path.join(__dirname+"/login.html", { title: "login", message: "Please Enter both username and password" }));
     }
-
-    Account.findOne({ username: req.body.username }, function (error, account) {
-        if (error) return console.log("error in accessing the database");
-        else if (!account) return res.sendFile(__dirname + "/login.html", { title: "login", message: "Username doesnot Exists" });
-        if (account.compare(req.body.password)) {
+    Account.create({ uname: req.body.uname, password: req.body.password }, function (err, account) {
+        if (err) return res.redirect("/signup", { message: "account already exist" });
+        else if (account.compare(req.body.password)) {
             req.session.user = account;
             req.session.save();
             console.log("saved");
-            console.log(req.session.user.username);
+            console.log(req.session.user.uname);
             console.log(req.session);
-            res.redirect.render('post-detail');
+            res.render.redirect('/posts/detail/:id');
         }
-        else return res.sendFile(__dirname + "/login.html", { title: "login", message: "Wrong password" });
+        else return res.sendFile(path.join(__dirname + "/login.html", { title: "login", message: "Wrong password" }));
     });
 
 });
 
-app.get('/',  function (req, res) {
+app.get('/posts/detail/:id',  function (req, res) {
     Post.find({}, function (err, posts) {
         if (err) {
             console.log(err);
         } else {
-            res.sendFile(__dirname + "/index.html", { posts: posts });
+            res.sendFile(path.join(__dirname + "/index.html", { posts: posts }));
         }
     });
 });
 
 
-app.get('/posts/detail/:id', function (req, res) {
+app.post('/posts/detail/:id', function (req, res) {
     Post.findById(req.params.id, function (err, postDetail) {
         if (err) {
             console.log(err);
@@ -102,19 +109,13 @@ app.get('/posts/detail/:id', function (req, res) {
             });
         }
     });
-}); 
+});
 
 
 //logout request
 app.get('/logout', function (req, res) {
     req.session.destroy();
-    res.redirect(__dirname + "/views/login.html");
+    res.redirect(path.join(__dirname+"/signup.html"));
 });
-var server = app.listen(5000, function () {
-    var host = server.address().address;
-    var port = server.address().port;
-    console.log("Example app listening at http://%s:%s", host, port);
-})  
-
 
 
