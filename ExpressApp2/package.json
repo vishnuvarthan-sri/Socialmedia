@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node views/app.js"
   },
   "description": "ExpressApp2",
   "author": {
@@ -23,6 +23,7 @@
     "html": "^1.0.0",
     "http": "0.0.1-security",
     "http-proxy-middleware": "^1.0.5",
+    "json": "^9.0.6",
     "mongoose-bcrypt": "^1.8.0",
     "morgan": "^1.7.0",
     "password-crypt": "^2.2.0",
