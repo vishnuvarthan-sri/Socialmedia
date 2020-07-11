@@ -34,12 +34,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '/routes')));
 app.use('/views', express.static(path.join(__dirname, '/views')))
 
-var authenticate = function (req, res, next) {
-    if (req.session && req.session.user) return next();
-    return res.redirect("/views/login.html");
-} 
-
-
 app.get('/signup', function (req, res) {
     res.sendFile(path.join(__dirname + "/signup.html"));
 });
