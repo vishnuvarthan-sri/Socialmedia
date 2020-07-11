@@ -36,7 +36,7 @@ app.use(express.static(path.join(__dirname, 'views')));
 var authenticate = function (req, res, next) {
     if (req.session && req.session.user) return next();
     return res.redirect(__dirname + "/login.html");
-}
+} 
 
 
 app.get('/', function (req, res) {
