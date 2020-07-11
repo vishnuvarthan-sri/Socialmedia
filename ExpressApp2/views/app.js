@@ -40,8 +40,8 @@ var authenticate = function (req, res, next) {
 } 
 
 
-app.get('/signup', function (req, res) {
-    res.render(__dirname + "/signup.html");
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname + "/signup.html"));
 });
 
 // sign up a new account handler
@@ -69,8 +69,8 @@ app.post('/signup', function (req, res) {
     });
 }); 
 
-app.get('/login', function (req, res) {
-    res.render(__dirname + "/login.html");
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname + "/login.html"));
 });
 
 app.post('/login', function (req, res) {
