@@ -29,9 +29,8 @@ app.set('view engine', 'pug','ejs');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '/routes')));
 app.use('/views', express.static(path.join(__dirname, '/views')))
 
 app.get('/signup', function (req, res) {
