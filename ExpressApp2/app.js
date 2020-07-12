@@ -46,7 +46,7 @@ app.post('/', function (req, res) {
         email: req.body.email
     }, function (error, account) {
             if (error) return console.log("Error in adding User to Database");
-            else if (Enter, !req.body.uname || !req.body.password || !req.body.email) {
+            else if ( !req.body.uname || !req.body.password || !req.body.email) {
                 return res.redirect( "/views/signup.html", { title: "signup", message: "Please Enter username, password and email" });
         }
 
