@@ -9,7 +9,7 @@ mongoose.connect('mongodb+srv://vishnuvarthan:thalavishnu98@cluster0.6ngdn.mongo
 var accountSchema = new Schema({
     uname: { type: String, required: true },
     email: { type: String, required: true },
-    password: {
+    psw: {
         type: String,
         required: true,
         select: false
@@ -23,8 +23,8 @@ var accountSchema = new Schema({
 accountSchema.pre('save', function (next) {
     var account = this;
     bcrypt.genSalt(10, function (error, salt) {
-        bcrypt.hash(account.password, salt, function (e, hash) {
-            account.password = hash;
+        bcrypt.hash(account.psw, salt, function (e, hash) {
+            account.psw = hash;
             next();
         });
     });
@@ -32,7 +32,7 @@ accountSchema.pre('save', function (next) {
 
 // comparing if the password entered is correct
 accountSchema.methods.compare = function (pw) {
-    return bcrypt.compareSync(pw, this.password);
+    return bcrypt.compareSync(pw, this.psw);
 }
 var db = mongoose.connection;
 db.on("error", () => {

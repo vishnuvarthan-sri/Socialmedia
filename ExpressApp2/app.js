@@ -20,7 +20,13 @@ var server = app.listen(5000, function () {
     var host = server.address().address
     var port = server.address().port
     console.log("Example app listening at http://%s:%s", host, port)
-})  
+});
+app.use(session({
+    secret: 'ssshhhhh',
+    resave: false,
+    saveUninitialized: false
+}));
+
 
 
 // view engine setup
@@ -44,7 +50,7 @@ app.post('/', function (req, res) {
     if (req.body) {
         Account.create({
             uname: req.body.uname,
-            password: req.body.password,
+            psw: req.body.psw,
             email: req.body.email
         }, function (error, account) {
             if (error) console.log("Error in adding User to Database");
@@ -74,9 +80,9 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
     if (req.body && req.session) {
-        Account.create({ uname: req.body.uname, password: req.body.password }, function (err, account) {
+        Account.create({ uname: req.body.uname, psw: req.body.psw }, function (err, account) {
             if (err) return res.redirect("/views/signup.html", { message: "account does'nt exist" });
-            else if (account.compare(req.body.password)) {
+            else if (account.compare(req.body.psw)) {
                 req.session.user = account;
                 req.session.save();
                 console.log("saved");
