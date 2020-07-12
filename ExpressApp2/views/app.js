@@ -57,7 +57,7 @@ app.post('/', function (req, res) {
         (err, account) {
         if (err) res.redirect(path.join(__dirname+"/signup.html", { messsage: "there is already an account" }));
         else (account)
-        res.redirect(window.location.pathname = '/login');
+        res.redirect('/');
 
     });
 
@@ -72,7 +72,7 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
     Account.create({ uname: req.body.uname, password: req.body.password }, function (err, account) {
-        if (err) return res.redirect(window.location.href = '/signup.html', { message: "account already exist" });
+        if (err) return res.redirect(__dirname + '/signup.html', { message: "account already exist" });
         else if (Account.compare(req.body.password)) {
             req.session.user = account;
             req.session.save();
