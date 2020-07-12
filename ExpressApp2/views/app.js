@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var bcrypt = require('bcrypt');
+var window = require('window');
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var session = require('express-session');
