@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var bcrypt = require('bcrypt');
 var window = require('window');
 var mongo = require('mongodb');
+
 var mongoose = require('mongoose');
 var session = require('express-session');
 mongoose.connect('mongodb+srv://vishnuvarthan:thalavishnu98@cluster0.6ngdn.mongodb.net/vishnuvarthan?retryWrites=true&w=majority');
@@ -47,8 +48,8 @@ app.get('/', function (req, res) {
 
 // sign up a new account handler
 app.post('/', function (req, res) {
-    if (req.body) {
-        Account.create({
+
+    Account.create({
             uname: req.body.uname,
             psw: req.body.psw,
             email: req.body.email
@@ -59,7 +60,7 @@ app.post('/', function (req, res) {
 
         });
 
-        Account.findOne({ uname: req.body.uname }, function
+    Account.findOne({ uname: req.body.uname }, function
             (err, account) {
             if (err) res.redirect("/views/signup.html", { messsage: "there is already an account" });
             else (account)
@@ -67,7 +68,7 @@ app.post('/', function (req, res) {
 
         });
 
-    }
+    
 
     });
     
