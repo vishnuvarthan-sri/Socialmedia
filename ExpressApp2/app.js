@@ -46,19 +46,15 @@ app.post('/', function (req, res) {
         email: req.body.email
     }, function (error, account) {
             if (error) return console.log("Error in adding User to Database");
-            else if ( !req.body.uname || !req.body.password || !req.body.email) {
-                return res.redirect( "/views/signup.html", { title: "signup", message: "Please Enter username, password and email" });
-        }
-
-        else (account)
+            else (account)
             console.log("thank you for signing up");
-            respose.redirect("/views/login.html")
+            
     });
     Enter.findOne({ uname: req.body.uname }, function
         (err, account) {
         if (err) res.redirect("/views/signup.html", { messsage: "there is already an account" });
         else (account)
-        res.redirect('/');
+        respose.redirect("/views/login.html");
 
     });
 
@@ -73,8 +69,8 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
     Enter.create({ uname: req.body.uname, password: req.body.password }, function (err, account) {
-        if (err) return res.redirect( "/views/signup.html", { message: "account already exist" });
-        else if (Account.compare(req.body.password)) {
+        if (err) return res.redirect( "/views/signup.html", { message: "account does'nt exist" });
+        else if (Enter.compare(req.body.password)) {
             req.session.user = account;
             req.session.save();
             console.log("saved");
