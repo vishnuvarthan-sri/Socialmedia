@@ -4,7 +4,7 @@ ObjectId = Schema.ObjectId;
 var http = require("http");
 var io = require("socket.io")(http);
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb+srv://vishnuvarthan:<Thala@vishnu98><vishnuvarthan>', { useMongoClient: true });
+mongoose.connect('mongodb+srv://vishnuvarthan:thalavishnu98@cluster0.6ngdn.mongodb.net/vishnuvarthan?retryWrites=true&w=majority', { useMongoClient: true });
 var post = "user";
 
 
