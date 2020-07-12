@@ -80,7 +80,7 @@ app.post('/', function (req, res) {
             console.log("saved");
             console.log(req.session.user.uname);
             console.log(req.session);
-            res.render.redirect( '/posts/detail/:id');
+            res.render.redirect( '/views/post-detail');
         }
         else return res.redirect("/views/login.html", { title: "login", message: "Wrong password" });
     });
