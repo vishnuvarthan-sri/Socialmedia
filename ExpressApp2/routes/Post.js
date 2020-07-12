@@ -22,6 +22,8 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('post', data);
     });
 });
-var Post1 = mongoose.model('post', Posts)
-module.exports = Post1;
+
+var Post1 = mongoose.model('Post1', Posts);
+module.exports = Post1
+
 

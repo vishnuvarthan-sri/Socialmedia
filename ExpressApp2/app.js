@@ -14,6 +14,7 @@ mongoose.connect('mongodb+srv://vishnuvarthan:thalavishnu98@cluster0.6ngdn.mongo
 var Account = require('./routes/Account');
 var Post = require('./routes/Post');
 var Comments = require('./routes/coments');
+
 var app = express();
 var server = app.listen(5000, function () {
     var host = server.address().address
@@ -40,21 +41,23 @@ app.get('/', function (req, res) {
 
 // sign up a new account handler
 app.post('/', function (req, res) {
-    Enter.create({
-        uname: req.body.uname,
-        password: req.body.password,
-        email: req.body.email
-    }, function (error, account) {
+    if (req.body && req.body.account) {
+        Account.create({
+            uname: req.body.uname,
+            password: req.body.password,
+            email: req.body.email
+        }, function (error, account) {
             if (error) return console.log("Error in adding User to Database");
             else (account)
             console.log("thank you for signing up");
-            
-    });
-    Enter.findOne({ uname: req.body.uname }, function
+
+        });
+    }
+    Account.findOne({ uname: req.body.uname }, function
         (err, account) {
         if (err) res.redirect("/views/signup.html", { messsage: "there is already an account" });
         else (account)
-        respose.redirect("/views/login.html");
+        res.redirect("/views/login.html");
 
     });
 
@@ -68,23 +71,25 @@ app.get('/', function (req, res) {
 });
 
 app.post('/', function (req, res) {
-    Enter.create({ uname: req.body.uname, password: req.body.password }, function (err, account) {
-        if (err) return res.redirect( "/views/signup.html", { message: "account does'nt exist" });
-        else if (Enter.compare(req.body.password)) {
-            req.session.user = account;
-            req.session.save();
-            console.log("saved");
-            console.log(req.session.user.uname);
-            console.log(req.session);
-            res.render.redirect( '/views/post-detail');
-        }
-        else return res.redirect("/views/login.html", { title: "login", message: "Wrong password" });
-    });
+    if (req.body && req.body.account) {
+        Account.create({ uname: req.body.uname, password: req.body.password }, function (err, account) {
+            if (err) return res.redirect("/views/signup.html", { message: "account does'nt exist" });
+            else if (account.compare(req.body.password)) {
+                req.session.user = account;
+                req.session.save();
+                console.log("saved");
+                console.log(req.session.user.uname);
+                console.log(req.session);
+                res.render.redirect('/views/post-detail.ejs');
+            }
+            else return res.redirect("/views/login.html", { title: "login", message: "Wrong password" });
+        });
+    }
 
 });
 
-app.get('/',  function (req, res) {
-    Post1.find({}, function (err, posts) {
+app.get('/', function (req, res) {
+    Post.find({}, function (err, posts) {
         if (err) {
             console.log(err);
         } else {
@@ -95,11 +100,11 @@ app.get('/',  function (req, res) {
 
 
 app.post('/posts/detail/:id', function (req, res) {
-    Post1.findById(req.params.id, function (err, postDetail) {
+    Post.findById(req.params.id, function (err, postDetail) {
         if (err) {
             console.log(err);
         } else {
-            Comments1.find({ 'postId': req.params.id }, function (err, comments) {
+            Comments.find({ 'postId': req.params.id }, function (err, comments) {
                 res.render('post-detail', { postDetail: postDetail, comments: comments, postId: req.params.id });
             });
         }

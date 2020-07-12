@@ -17,5 +17,5 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('comment', data);
     });
 });
-var Comments1 = mongoose.model('Comments', Comments)
-module.exports = Comments1;
+var Comments = mongoose.model('Comments', Comments);
+module.exports = Comments

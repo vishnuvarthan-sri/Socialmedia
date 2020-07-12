@@ -7,10 +7,10 @@ mongoose.connect('mongodb+srv://vishnuvarthan:thalavishnu98@cluster0.6ngdn.mongo
 
 // creating a new schema for account details
 var accountSchema = new Schema({
-    uname: { type: mongoose.SchemaTypes.String, required: true },
-    email: { type: mongoose.SchemaTypes.String, required: true },
+    uname: { type: String, required: true },
+    email: { type: String, required: true },
     password: {
-        type: mongoose.SchemaTypes.String,
+        type: String,
         required: true,
         select: false
     }
@@ -41,6 +41,8 @@ db.on("error", () => {
 db.once("open", () => {
     console.log("> successfully opened the database");
 });
-var Enter = mongoose.model('account', accountSchema)
 
-module.exports = Enter;
+var Account = mongoose.model('account', accountSchema);
+module.exports = Account
+
+
