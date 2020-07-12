@@ -2,8 +2,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require("bcrypt");
-mongoose.connect('mongodb+srv://vishnuvarthan:thalavishnu98@cluster0.6ngdn.mongodb.net/vishnuvarthan?retryWrites=true&w=majority', { useMongoClient: true });
-var account = "user";
+mongoose.connect('mongodb+srv://vishnuvarthan:thalavishnu98@cluster0.6ngdn.mongodb.net/vishnuvarthan?retryWrites=true&w=majority');
+
 
 // creating a new schema for account details
 var accountSchema = new Schema({
@@ -21,6 +21,7 @@ var accountSchema = new Schema({
 
 // function called before the create function in post handler of signup
 accountSchema.pre('save', function (next) {
+    var account = this;
     bcrypt.genSalt(10, function (error, salt) {
         bcrypt.hash(account.password, salt, function (e, hash) {
             account.password = hash;
@@ -40,6 +41,6 @@ db.on("error", () => {
 db.once("open", () => {
     console.log("> successfully opened the database");
 });
-var Account = mongoose.model('account', accountSchema)
+var Enter = mongoose.model('account', accountSchema)
 
-module.exports = Account;
+module.exports = Enter;

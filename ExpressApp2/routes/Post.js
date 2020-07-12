@@ -4,8 +4,8 @@ ObjectId = Schema.ObjectId;
 var http = require("http");
 var io = require("socket.io")(http);
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb+srv://vishnuvarthan:thalavishnu98@cluster0.6ngdn.mongodb.net/vishnuvarthan?retryWrites=true&w=majority', { useMongoClient: true });
-var post = "user";
+mongoose.connect('mongodb+srv://vishnuvarthan:thalavishnu98@cluster0.6ngdn.mongodb.net/vishnuvarthan?retryWrites=true&w=majority');
+
 
 
 var Posts = new  Schema({
@@ -15,13 +15,13 @@ var Posts = new  Schema({
     url: String
 });
 
-io.on('connection', function (socket){
+io.on('connection', function (socket) {
     socket.on('post', function (data){
         var postData = new Posts(data);
         postData.save();
         socket.broadcast.emit('post', data);
     });
 });
-var Post = mongoose.model('post', Posts)
-module.exports = Post;
+var Post1 = mongoose.model('post', Posts)
+module.exports = Post1;
 

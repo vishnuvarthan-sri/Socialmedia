@@ -4,8 +4,8 @@ ObjectId = Schema.ObjectId;
 var http = require("http");
 var io = require("socket.io")(http);
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb+srv://vishnuvarthan:thalavishnu98@cluster0.6ngdn.mongodb.net/vishnuvarthan?retryWrites=true&w=majority', { useMongoClient: true });
-var Comments = "User";
+mongoose.connect('mongodb+srv://vishnuvarthan:thalavishnu98@cluster0.6ngdn.mongodb.net/vishnuvarthan?retryWrites=true&w=majority');
+var Comments = this;
 var Comments = new Schema({
     comment: String,
     postId: String
@@ -17,5 +17,5 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('comment', data);
     });
 });
-var Comments = mongoose.model('Comments', Comments)
-module.exports = Comments;
+var Comments1 = mongoose.model('Comments', Comments)
+module.exports = Comments1;
