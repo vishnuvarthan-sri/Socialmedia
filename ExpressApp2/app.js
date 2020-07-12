@@ -24,9 +24,9 @@ var server = app.listen(5000, function () {
 
 // view engine setup
 app.engine('ejs', require('ejs').__express);
-app.engine('pug', require('pug').__express);
+
 app.set('views', path.join(__dirname, '/views'));
-app.set('view engine', 'pug','ejs');
+app.set('view engine','ejs');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
