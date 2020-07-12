@@ -41,27 +41,29 @@ app.get('/', function (req, res) {
 
 // sign up a new account handler
 app.post('/', function (req, res) {
-    if (req.body && req.body.account) {
+    if (req.body) {
         Account.create({
             uname: req.body.uname,
             password: req.body.password,
             email: req.body.email
         }, function (error, account) {
-            if (error) return console.log("Error in adding User to Database");
+            if (error) console.log("Error in adding User to Database");
             else (account)
             console.log("thank you for signing up");
 
         });
+
+        Account.findOne({ uname: req.body.uname }, function
+            (err, account) {
+            if (err) res.redirect("/views/signup.html", { messsage: "there is already an account" });
+            else (account)
+            res.redirect("/views/login.html");
+
+        });
+
     }
-    Account.findOne({ uname: req.body.uname }, function
-        (err, account) {
-        if (err) res.redirect("/views/signup.html", { messsage: "there is already an account" });
-        else (account)
-        res.redirect("/views/login.html");
 
     });
-
-});
     
   
  
@@ -71,7 +73,7 @@ app.get('/', function (req, res) {
 });
 
 app.post('/', function (req, res) {
-    if (req.body && req.body.account) {
+    if (req.body && req.session) {
         Account.create({ uname: req.body.uname, password: req.body.password }, function (err, account) {
             if (err) return res.redirect("/views/signup.html", { message: "account does'nt exist" });
             else if (account.compare(req.body.password)) {
@@ -80,7 +82,7 @@ app.post('/', function (req, res) {
                 console.log("saved");
                 console.log(req.session.user.uname);
                 console.log(req.session);
-                res.render.redirect('/views/post-detail.ejs');
+                res.redirect("/views/index.html");
             }
             else return res.redirect("/views/login.html", { title: "login", message: "Wrong password" });
         });
