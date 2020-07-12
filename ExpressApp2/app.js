@@ -11,9 +11,9 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var session = require('express-session');
 mongoose.connect('mongodb+srv://vishnuvarthan:thalavishnu98@cluster0.6ngdn.mongodb.net/vishnuvarthan?retryWrites=true&w=majority', { useMongoClient: true });
-var Account = require('../routes/Account');
-var Post = require('../routes/Post');
-var Comments = require('../routes/coments');
+var Account = require('./routes/Account');
+var Post = require('./routes/Post');
+var Comments = require('./routes/coments');
 var app = express();
 var server = app.listen(5000, function () {
     var host = server.address().address
@@ -35,7 +35,7 @@ app.use(cookieParser());
 app.use('/views', express.static(path.join(__dirname, '/views')))
 
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname + "/signup.html"));
+    res.send.redirect("/views/signup.html");
 });
 
 // sign up a new account handler
@@ -47,15 +47,16 @@ app.post('/', function (req, res) {
     }, function (error, account) {
             if (error) return console.log("Error in adding User to Database");
             else if (Account, !req.body.uname || !req.body.password || !req.body.email) {
-                return res.redirect(path.join(__dirname + "/signup.html", { title: "signup", message: "Please Enter username, password and email" }));
+                return res.redirect( "/views/signup.html", { title: "signup", message: "Please Enter username, password and email" });
         }
 
         else (account)
             console.log("thank you for signing up");
+            respose.redirect("/views/login.html")
     });
     Account.findOne({ uname: req.body.uname }, function
         (err, account) {
-        if (err) res.redirect(path.join(__dirname+"/signup.html", { messsage: "there is already an account" }));
+        if (err) res.redirect("/views/signup.html", { messsage: "there is already an account" });
         else (account)
         res.redirect('/');
 
@@ -67,21 +68,21 @@ app.post('/', function (req, res) {
  
 
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname + "/login.html"));
+    res.send.redirect ("/views/login.html");
 });
 
 app.post('/', function (req, res) {
     Account.create({ uname: req.body.uname, password: req.body.password }, function (err, account) {
-        if (err) return res.redirect(__dirname + '/signup.html', { message: "account already exist" });
+        if (err) return res.redirect( "/views/signup.html", { message: "account already exist" });
         else if (Account.compare(req.body.password)) {
             req.session.user = account;
             req.session.save();
             console.log("saved");
             console.log(req.session.user.uname);
             console.log(req.session);
-            res.render.redirect(window.location.pathname = '/posts/detail/:id');
+            res.render.redirect( '/posts/detail/:id');
         }
-        else return res.sendFile(path.join(__dirname + "/login.html", { title: "login", message: "Wrong password" }));
+        else return res.redirect("/views/login.html", { title: "login", message: "Wrong password" });
     });
 
 });
@@ -91,7 +92,7 @@ app.get('/',  function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.sendFile(path.join(__dirname + "/index.html", { posts: posts }));
+            res.send.redirect("/views/index.html", { posts: posts });
         }
     });
 });
@@ -113,7 +114,7 @@ app.post('/posts/detail/:id', function (req, res) {
 //logout request
 app.get('/logout', function (req, res) {
     req.session.destroy();
-    res.redirect(path.join(__dirname+"/views/login.html"));
+    res.redirect("/views/login.html");
 });
 
 
