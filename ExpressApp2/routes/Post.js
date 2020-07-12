@@ -4,7 +4,8 @@ ObjectId = Schema.ObjectId;
 var http = require("http");
 var io = require("socket.io")(http);
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb+srv://vishnuvarthan:<thalavishnu98><vishnuvarthan>', { useMongoClient: true })
+mongoose.connect('mongodb+srv://vishnuvarthan:<thalavishnu98><vishnuvarthan>', { useMongoClient: true });
+var post = "user";
 
 
 var Posts = new  Schema({
@@ -21,6 +22,6 @@ io.on('connection', function (socket){
         socket.broadcast.emit('post', data);
     });
 });
-
-module.exports = mongoose.model('post', Posts);
+var Post = mongoose.model('post', Posts)
+module.exports = Post;
 

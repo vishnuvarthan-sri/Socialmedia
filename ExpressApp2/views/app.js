@@ -31,32 +31,32 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '/routes')));
 app.use('/views', express.static(path.join(__dirname, '/views')))
 
-app.get('/signup', function (req, res) {
+app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + "/signup.html"));
 });
 
 // sign up a new account handler
-app.post('/signup', function (req, res) {
-    if (!req.body.uname || !req.body.password || !req.body.email) {
-        return res.sendFile(path.join(__dirname+"/signup.html", { title: "signup", message: "Please Enter username, password and email" }));
-    }
+app.post('/', function (req, res) {
     Account.create({
         uname: req.body.uname,
         password: req.body.password,
         email: req.body.email
     }, function (error, account) {
-        if (error) return console.log("Error in adding User to Database");
-            else (account)
+            if (error) return console.log("Error in adding User to Database");
+            else if (Account, !req.body.uname || !req.body.password || !req.body.email) {
+            return res.sendFile(path.join(__dirname + "/signup.html", { title: "signup", message: "Please Enter username, password and email" }));
+        }
+
+        else (account)
             console.log("thank you for signing up");
     });
     Account.findOne({ uname: req.body.uname }, function
         (err, account) {
         if (err) res.redirect(path.join(__dirname+"/signup.html", { messsage: "there is already an account" }));
         else (account)
-        res.redirect(path.join(__dirname +"/login"));
+        res.redirect(window.location.pathname = '/login');
 
     });
 
@@ -65,30 +65,27 @@ app.post('/signup', function (req, res) {
   
  
 
-app.get('/login', function (req, res) {
+app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname + "/login.html"));
 });
 
-app.post('/login', function (req, res) {
-    if (!req.body.uname || !req.body.password) {
-        return res.sendFile(path.join(__dirname+"/login.html", { title: "login", message: "Please Enter both username and password" }));
-    }
+app.post('/', function (req, res) {
     Account.create({ uname: req.body.uname, password: req.body.password }, function (err, account) {
-        if (err) return res.redirect("/signup", { message: "account already exist" });
-        else if (account.compare(req.body.password)) {
+        if (err) return res.redirect(window.location.href = '/signup.html', { message: "account already exist" });
+        else if (Account.compare(req.body.password)) {
             req.session.user = account;
             req.session.save();
             console.log("saved");
             console.log(req.session.user.uname);
             console.log(req.session);
-            res.render.redirect('/posts/detail/:id');
+            res.render.redirect(window.location.pathname = '/posts/detail/:id');
         }
         else return res.sendFile(path.join(__dirname + "/login.html", { title: "login", message: "Wrong password" }));
     });
 
 });
 
-app.get('/posts/detail/:id',  function (req, res) {
+app.get('/',  function (req, res) {
     Post.find({}, function (err, posts) {
         if (err) {
             console.log(err);
@@ -115,7 +112,7 @@ app.post('/posts/detail/:id', function (req, res) {
 //logout request
 app.get('/logout', function (req, res) {
     req.session.destroy();
-    res.redirect(path.join(__dirname+"/signup.html"));
+    res.redirect(path.join(__dirname+"/views/login.html"));
 });
 
 
