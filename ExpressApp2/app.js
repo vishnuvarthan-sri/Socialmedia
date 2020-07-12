@@ -35,7 +35,7 @@ app.use(cookieParser());
 app.use('/views', express.static(path.join(__dirname, '/views')))
 
 app.get('/', function (req, res) {
-    res.send.redirect("/views/signup.html");
+    res.redirect("/views/signup.html");
 });
 
 // sign up a new account handler
@@ -68,7 +68,7 @@ app.post('/', function (req, res) {
  
 
 app.get('/', function (req, res) {
-    res.send.redirect ("/views/login.html");
+    res.redirect ("/views/login.html");
 });
 
 app.post('/', function (req, res) {
@@ -92,7 +92,7 @@ app.get('/',  function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            res.send.redirect("/views/index.html", { posts: posts });
+            res.redirect("/views/index.html", { posts: posts });
         }
     });
 });
