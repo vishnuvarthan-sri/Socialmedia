@@ -91,6 +91,8 @@ app.post('/', function (req, res) {
             (err, account) {
             if (err) res.redirect("/views/signup.html", { messsage: "there is already an account" });
             else (account)
+            req.session.account = account;
+            req.session.save();
             res.redirect("/views/login.html");
 
         });
