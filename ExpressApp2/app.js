@@ -8,7 +8,8 @@ var bodyParser = require('body-parser');
 var bcrypt = require('bcrypt');
 var window = require('window');
 var mongo = require('mongodb');
-
+var http = require("http").Server(app);
+var io = require("socket.io")(http);
 var mongoose = require('mongoose');
 var session = require('express-session');
 mongoose.connect('mongodb+srv://vishnuvarthan:thalavishnu98@cluster0.6ngdn.mongodb.net/vishnuvarthan?retryWrites=true&w=majority');
@@ -80,31 +81,26 @@ app.get('/', function (req, res) {
 });
 
 app.post('/', function (req, res) {
-    if (req.body && req.session) {
+    if (req.body && req.session.account) {
         Account.create({ uname: req.body.uname, psw: req.body.psw }, function (err, account) {
             if (err) return res.redirect("/views/signup.html", { message: "account does'nt exist" });
-            else if (account.compare(req.body.psw)) {
-                req.session.user = account;
-                req.session.save();
-                console.log("saved");
-                console.log(req.session.user.uname);
-                console.log(req.session);
-                res.redirect("/views/index.html");
-            }
-            else return res.redirect("/views/login.html", { title: "login", message: "Wrong password" });
+            else (account)
+            console.log("thank u for loggin in"); 
+        });
+        Account.findOne({ psw: req.body.psw }, function (err, account) {
+            if (err) return res.redirect("/views/login.html", { message: "login again" });
+            else (account.compare(req.body.psw)) 
+                req.session.account = account;
+            req.session.save();
+            res.redirect.render("post-detail", { message: "ready for post" });
+                
         });
     }
 
 });
 
 app.get('/', function (req, res) {
-    Post.find({}, function (err, posts) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.redirect("/views/index.html", { posts: posts });
-        }
-    });
+               res.redirect.render('post-detail', { posts: posts });       
 });
 
 
@@ -118,7 +114,15 @@ app.post('/posts/detail/:id', function (req, res) {
             });
         }
     });
+    io.on('connection', function (socket) {
+        socket.on('comment', function (data) {
+            var commentData = new Comments(data);
+            commentData.save();
+            socket.broadcast.emit('comment', data);
+        });
+    });
 });
+
 
 
 //logout request

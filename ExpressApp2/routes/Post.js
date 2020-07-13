@@ -15,13 +15,7 @@ var Posts = new  Schema({
     url: String
 });
 
-io.on('connection', function (socket) {
-    socket.on('post', function (data){
-        var postData = new Posts(data);
-        postData.save();
-        socket.broadcast.emit('post', data);
-    });
-});
+
 
 var Post1 = mongoose.model('Post1', Posts);
 module.exports = Post1

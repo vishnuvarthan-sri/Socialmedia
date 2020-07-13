@@ -10,12 +10,6 @@ var Comments = new Schema({
     comment: String,
     postId: String
 });
-io.on('connection', function (socket) {
-    socket.on('comment', function (data) {
-        var commentData = new Comments(data);
-        commentData.save();
-        socket.broadcast.emit('comment', data);
-    });
-});
+
 var Comments = mongoose.model('Comments', Comments);
 module.exports = Comments
