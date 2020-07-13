@@ -82,7 +82,7 @@
         <div class="imgcontainer">
             <button name="photo" onclick="previewFile()" id="image"></button>
             <script>
- import * as e from "express";
+                import * as e from "express";
 
                 function previewFile() {
                     var preview = document.querySelector('img');
@@ -99,12 +99,12 @@
                         preview.src = "";
                     }
                 }
-            
 
-function name2() {
-previewFile()
-}
-</script>
+
+                function name2() {
+                    previewFile()
+                }
+            </script>
             <input type="file" onchange=""><br>
             <img src="" height="200" alt="Image preview...">
         </div>
@@ -115,22 +115,19 @@ previewFile()
 
             <label for="psw"><b>Password</b></label>
             <input type="password" placeholder="Enter Password" name="psw" required>
-            
+
 
             <button type="submit" method="post" class="loginbtn">Login</button>
-            
-           
-            <label>
-                <input type="checkbox" checked="checked" name="remember"> Remember me
-            </label>
+
         </div>
 
         <div class="container" style="background-color:#f1f1f1">
-            <button type="button" class="cancelbtn">Cancel</button>
             <button class="logoutbtn" type="submit">logout</button>
-            <span class="psw">Forgot <a href="#">password?</a></span>
-        </div>
+             </div>
     </form>
-    
+    <form action="signup.html" method="get">
+        <button class="signinbtn" type="submit">signup</button>
+    </form>
+
 </body>
 </html>

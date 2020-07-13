@@ -43,35 +43,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use('/views', express.static(path.join(__dirname, '/views')))
 
-app.get('/', function (req, res) {
-    res.redirect("/views/signup.html");
-});
 
-// sign up a new account handler
-app.post('/', function (req, res) {
-
-    Account.create({
-            uname: req.body.uname,
-            psw: req.body.psw,
-            email: req.body.email
-        }, function (error, account) {
-            if (error) console.log("Error in adding User to Database");
-            else (account)
-            console.log("thank you for signing up");
-
-        });
-
-    Account.findOne({ uname: req.body.uname }, function
-            (err, account) {
-            if (err) res.redirect("/views/signup.html", { messsage: "there is already an account" });
-            else (account)
-            res.redirect("/views/login.html");
-
-        });
-
-    
-
-    });
     
   
  
@@ -89,13 +61,43 @@ app.post('/', function (req, res) {
         });
         Account.findOne({ psw: req.body.psw }, function (err, account) {
             if (err) return res.redirect("/views/login.html", { message: "login again" });
-            else (account.compare(req.body.psw)) 
+            else (account) 
                 req.session.account = account;
             req.session.save();
             res.redirect.render("/views/post-detail", { message: "ready for post" });
                 
         });
     }
+
+});
+
+app.get('/', function (req, res) {
+    res.redirect("/views/signup.html");
+});
+
+// sign up a new account handler
+app.post('/', function (req, res) {
+
+    Account.create({
+        uname: req.body.uname,
+        psw: req.body.psw,
+        email: req.body.email
+    }, function (error, account) {
+        if (error) console.log("Error in adding User to Database");
+        else (account)
+        console.log("thank you for signing up");
+
+    });
+
+    Account.findOne({ uname: req.body.uname }, function
+        (err, account) {
+        if (err) res.redirect("/views/signup.html", { messsage: "there is already an account" });
+        else (account)
+        res.redirect("/views/login.html");
+
+    });
+
+
 
 });
 
