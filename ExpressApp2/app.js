@@ -102,7 +102,7 @@ app.post('/', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-               res.redirect.render("/views/post-detail", { posts: posts });       
+               res.redirect.render("/views/post-detail.ejs", { posts: posts });       
 });
 
 
@@ -112,7 +112,7 @@ app.post('/posts/detail/:id', function (req, res) {
             console.log(err);
         } else {
             Comments.find({ 'postId': req.params.id }, function (err, comments) {
-                res.render('/views/post-detail', { postDetail: postDetail, comments: comments, postId: req.params.id });
+                res.render('/views/post-detail.ejs', { postDetail: postDetail, comments: comments, postId: req.params.id });
             });
         }
     });
