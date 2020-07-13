@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node views/app.js"
+    "start": "node app.js"
   },
   "description": "ExpressApp2",
   "author": {
