@@ -103,12 +103,19 @@
 
             <div class="clearfix">
                 <button type="button" class="cancelbtn">Cancel</button>
-                <button type="submit"  class="signupbtn">Sign Up</button>
+                <button type="submit" class="signupbtn">Sign Up</button>
             </div>
+            <button type="submit" onclick="pageRedirect()" class="loginbtn">login</button>
+            <script>
+                function pageRedirect() {
+                    window.location.pathname = "/views/login.html";
+                }      
+            </script>
+
         </div>
     </form>
     
-        <button type="submit"formaction="/login.html"formmethod="get" class="loginbtn">login</button>
+        
    
 </body>
 </html>

@@ -24,6 +24,7 @@
     "http": "0.0.1-security",
     "http-proxy-middleware": "^1.0.5",
     "json": "^9.0.6",
+    "mongoose": "^5.9.23",
     "mongoose-bcrypt": "^1.8.0",
     "morgan": "^1.7.0",
     "password-crypt": "^2.2.0",

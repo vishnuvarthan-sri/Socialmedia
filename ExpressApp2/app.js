@@ -79,7 +79,7 @@ app.post('/', function (req, res) {
         Account.create({
             uname: req.body.uname,
             psw: req.body.psw,
-            email: req.body.email
+            email: req.body.email,
         }, function (error, account) {
             if (error) console.log("Error in adding User to Database");
             else (account)
@@ -102,29 +102,32 @@ app.post('/', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-               res.redirect.render("/views/post-detail.ejs", { posts: posts });       
+    res.redirect('post-detail', { posts: posts });       
 });
 
 
-app.post('/posts/detail/:id', function (req, res) {
-    Post.findById(req.params.id, function (err, postDetail) {
+app.get('/posts/detail/:id', function (req, res) {
+    Post.create({
+        title: req.body.title, description: req.body.description, by: req.body.by
+    }, function(err, postDetail) {
         if (err) {
             console.log(err);
         } else {
-            Comments.find({ 'postId': req.params.id }, function (err, comments) {
-                res.render('/views/post-detail.ejs', { postDetail: postDetail, comments: comments, postId: req.params.id });
+            Comments.findOne({ postId: req.params.postId, comment: req.params.comment }, function (err, comments) {
+                res.render('post-detail', { postDetail: postDetail, comments: comments, postId: req.params.id });
             });
         }
     });
-    io.on('connection', function (socket) {
-        socket.on('comment', function (data) {
-            var commentData = new Comments(data);
-            commentData.save();
-            socket.broadcast.emit('comment', data);
-        });
-    });
+    
 });
 
+io.on('connection', function (socket) {
+    socket.on('comment', function (data) {
+        var commentData = new Comments(data);
+        commentData.save();
+        socket.broadcast.emit('comment', data);
+    });
+});
 
 
 //logout request
