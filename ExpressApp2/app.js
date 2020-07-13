@@ -92,7 +92,7 @@ app.post('/', function (req, res) {
             else (account.compare(req.body.psw)) 
                 req.session.account = account;
             req.session.save();
-            res.redirect.render("post-detail", { message: "ready for post" });
+            res.redirect.render("/views/post-detail", { message: "ready for post" });
                 
         });
     }
@@ -100,7 +100,7 @@ app.post('/', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-               res.redirect.render('post-detail', { posts: posts });       
+               res.redirect.render("/views/post-detail", { posts: posts });       
 });
 
 
@@ -110,7 +110,7 @@ app.post('/posts/detail/:id', function (req, res) {
             console.log(err);
         } else {
             Comments.find({ 'postId': req.params.id }, function (err, comments) {
-                res.render('post-detail', { postDetail: postDetail, comments: comments, postId: req.params.id });
+                res.render('/views/post-detail', { postDetail: postDetail, comments: comments, postId: req.params.id });
             });
         }
     });
