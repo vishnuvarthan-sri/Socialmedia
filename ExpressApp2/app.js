@@ -53,17 +53,15 @@ app.get('/', function (req, res) {
 });
 
 app.post('/', function (req, res) {
-    if (req.body && req.session.account) {
+    if (req.body && req.body.account) {
         Account.create({ uname: req.body.uname, psw: req.body.psw }, function (err, account) {
-            if (err) return res.redirect("/views/signup.html", { message: "account does'nt exist" });
+            if (err) return res.redirect("/views/signup.html", { message: "account does'nt exist signup first" });
             else (account)
             console.log("thank u for loggin in"); 
         });
-        Account.findOne({ psw: req.body.psw }, function (err, account) {
+        Account.findOne({ psw: req.body.psw, uname: req.body.uname }, function (err, account) {
             if (err) return res.redirect("/views/login.html", { message: "login again" });
-            else (account) 
-                req.session.account = account;
-            req.session.save();
+            else (account)  
             res.redirect.render("/views/post-detail", { message: "ready for post" });
                 
         });
@@ -77,27 +75,27 @@ app.get('/', function (req, res) {
 
 // sign up a new account handler
 app.post('/', function (req, res) {
+    if (req.body && req.body.account) {
+        Account.create({
+            uname: req.body.uname,
+            psw: req.body.psw,
+            email: req.body.email
+        }, function (error, account) {
+            if (error) console.log("Error in adding User to Database");
+            else (account)
+            console.log("thank you for signing up");
 
-    Account.create({
-        uname: req.body.uname,
-        psw: req.body.psw,
-        email: req.body.email
-    }, function (error, account) {
-        if (error) console.log("Error in adding User to Database");
-        else (account)
-        console.log("thank you for signing up");
+        });
 
-    });
+        Account.findOne({ uname: req.body.uname }, function
+            (err, account) {
+            if (err) res.redirect("/views/signup.html", { messsage: "there is already an account" });
+            else (account)
+            res.redirect("/views/login.html");
 
-    Account.findOne({ uname: req.body.uname }, function
-        (err, account) {
-        if (err) res.redirect("/views/signup.html", { messsage: "there is already an account" });
-        else (account)
-        res.redirect("/views/login.html");
+        });
 
-    });
-
-
+    }
 
 });
 
