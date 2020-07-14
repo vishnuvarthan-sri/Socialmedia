@@ -17,7 +17,7 @@ var Posts = new  Schema({
 
 
 
-var Post1 = mongoose.model('post', Posts);
-module.exports = Post1
+var Post = mongoose.model('Post', Posts);
+module.exports = Post;
 
 

@@ -60,7 +60,8 @@ app.post('/login', function (req, res) {
       //  });
         Account.findOne({ psw: req.body.psw, uname: req.body.uname }, function (err, account) {
             if (err) return res.redirect("/views/login.html", { message: "login again" });
-            else (account)  
+            else (account)
+            
             res.render("post-detail", { message: "ready for post" });
                 
         });

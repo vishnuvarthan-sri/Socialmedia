@@ -38,7 +38,7 @@ db.once("open", () => {
     console.log("> successfully opened the database");
 });
 
-var Account = mongoose.model('account', accountSchema);
-module.exports = Account
+var Account = mongoose.model('Account', accountSchema);
+module.exports = Account;
 
 
