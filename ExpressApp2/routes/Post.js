@@ -10,12 +10,14 @@ var Posts = new  Schema({
     title: String,
     description: String,
     by: String,
+    post: String,
+    postDetail: String,
     
 });
 
 
 
-var Post1 = mongoose.model('Post1', Posts);
+var Post1 = mongoose.model('post', Posts);
 module.exports = Post1
 
 

@@ -34,11 +34,7 @@
             }
 
         
-        .cancelbtn {
-            width: auto;
-            padding: 10px 18px;
-            background-color: #f44336;
-        }
+       
 
         
         .imgcontainer {
@@ -78,12 +74,10 @@
 </head>
 <body>
     <center> <h1> Login Form </h1> </center>
-    <form action="/" method="post">
+    <form action="/login" method="post">
         <div class="imgcontainer">
-            <button name="photo" onclick="previewFile()" id="image"></button>
+            <button name="photo" onclick="previewFile()" id="image" style="float:left" ></button>
             <script>
-                import * as e from "express";
-
                 function previewFile() {
                     var preview = document.querySelector('img');
                     var file = document.querySelector('input[type=file]').files[0];
@@ -102,7 +96,7 @@
 
 
                 function name2() {
-                    previewFile()
+                    previewFile();
                 }
             </script>
             <input type="file" onchange=""><br>
@@ -123,7 +117,7 @@
 
         <div class="container" style="background-color:#f1f1f1">
 
-            <button class="logoutbtn" formaction="/logout" formmethod="get" type="submit">logout</button>
+           
             <button class="signinbtn" onclick="pageRedirect1()" type="submit">signup</button>
             <script>
                 function pageRedirect1() {

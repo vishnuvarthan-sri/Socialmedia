@@ -1,75 +1,24 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-    <script type="text/javascript"></script>
+   POST On the media
 </head>
-    <body>
+<body>
+    <form action="/posts/detail/:id">
+        <label for="title"></label>
+        <textarea id="title" placeholder="title of post"></textarea>
+        <label for="description"></label>
+        <textarea id="description" placeholder="description of post"></textarea>
+        <label for="by"></label>
+        <textarea id="by" placeholder="post by whom"></textarea>
+        <label for="post">Post here</label>
+        <textarea id="post" name="post" placeholder="post something" rows="10" cols="60"></textarea>
+        </form>
+    
+    <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">Widget</a> is loading comments...</div>
+    <link rel="stylesheet" type="text/css" href="https://www.htmlcommentbox.com/static/skins/bootstrap/twitter-bootstrap.css?v=0" />
+    <script type="text/javascript" id="hcb">/*<!--*/ if (!window.hcb_user) { hcb_user = {}; } (function () { var s = document.createElement("script"), l = hcb_user.PAGE || ("" + window.location).replace(/'/g, "%27"), h = "https://www.htmlcommentbox.com"; s.setAttribute("type", "text/javascript"); s.setAttribute("src", h + "/jread?page=" + encodeURIComponent(l).replace("+", "%2B") + "&mod=%241%24wq1rdBcg%242xNFtlUcZOp%2FGnr2SquBG%2F" + "&opts=16862&num=10&ts=1594666082245"); if (typeof s != "undefined") document.getElementsByTagName("head")[0].appendChild(s); })(); /*-->*/</script>
+    
 
-        <h2><%= postDetail.title %></h2>
-        <p><%= postDetail.description %></p>
-        <span><%= postDetail.by %></span><br>
-        <span><%= postDetail.url %></span><br>
-        <table border="1">
-            <%
-            if (typeof posts != 'undefined' && posts.length > 0) {
-            var srNo = 0;
-            posts.forEach( function ( post ){
-            srNo = srNo + 1;
-            %>
-            <tr>
-                <td><%= srNo %></td>
-                <td><%= post.title %></td>
-                <td><a href="/posts/detail/<%= post._id %>" title="Post Detail">Detail</a></td>
-
-            </tr>
-            <% });
-            }
-            else {  %>
-            <tr><td colspan="3"> No Data </td></tr>
-            <% } %>
-
-        </table>
-
-        <div class="comments">
-            <%
-            if (typeof comments != 'undefined' && comments != null) {
-            comments.forEach( function ( commentData ){
-            %>
-            <p> <%= commentData.comment %> </p>
-            <% });
-            } %>
-
-        </div>
-
-<textarea id="comment" rows="3" cols="50"></textarea><br>
-        <input type="hidden" id="postId" value="<%= postId %>">
-        <input type="submit" value="Send" id="send">
-
-        <script type="text/javascript">
-            var socket = io();
-            $('#send').click(function () {
-                var comment = $('#comment').val();
-                var postId = $('#postId').val();
-                if (comment != '') {
-                    var data = { 'comment': comment, 'postId': postId };
-                    $('.comments').append("<p>" + comment + "</p>");
-                    $('#comment').val('');
-                }
-
-                socket.emit('comment', data);
-
-
-            });
-
-            socket.on('comment', function (data) {
-                var postId = "<%= postId %>";
-                if (postId == data.postId) {
-                    $('.comments').append("<p>" + data.comment + "</p>");
-                }
-            });
-
-
-        </script>
-    </body>
+</body>
 </html>

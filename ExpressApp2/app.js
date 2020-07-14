@@ -1,5 +1,4 @@
 var express = require('express');
-var debug = require('debug')('app4')
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -15,7 +14,7 @@ var session = require('express-session');
 mongoose.connect('mongodb+srv://vishnuvarthan:thalavishnu98@cluster0.6ngdn.mongodb.net/vishnuvarthan?retryWrites=true&w=majority');
 var Account = require('./routes/Account');
 var Post = require('./routes/Post');
-var Comments = require('./routes/coments');
+
 
 var app = express();
 var server = app.listen(5000, function () {
@@ -31,7 +30,7 @@ app.use(session({
 
 
 
-// view engine setup
+
 app.engine('ejs', require('ejs').__express);
 
 app.set('views', path.join(__dirname, '/views'));
@@ -52,17 +51,17 @@ app.get('/', function (req, res) {
     res.redirect ("/views/login.html");
 });
 
-app.post('/', function (req, res) {
-    if (req.body && req.body.account) {
-        Account.create({ uname: req.body.uname, psw: req.body.psw }, function (err, account) {
-            if (err) return res.redirect("/views/signup.html", { message: "account does'nt exist signup first" });
-            else (account)
-            console.log("thank u for loggin in"); 
-        });
+app.post('/login', function (req, res) {
+    if (req.body || req.body.account) {
+       // Account.create({ uname: req.body.uname, psw: req.body.psw }, function (err, account) {
+          //  if (err) return res.redirect("/views/signup.html", { message: "account does'nt exist signup first" });
+           // else (account)
+           // console.log("thank u for loggin in"); 
+      //  });
         Account.findOne({ psw: req.body.psw, uname: req.body.uname }, function (err, account) {
             if (err) return res.redirect("/views/login.html", { message: "login again" });
             else (account)  
-            res.redirect.render("/views/post-detail", { message: "ready for post" });
+            res.render("post-detail", { message: "ready for post" });
                 
         });
     }
@@ -75,7 +74,7 @@ app.get('/', function (req, res) {
 
 // sign up a new account handler
 app.post('/', function (req, res) {
-    if (req.body && req.body.account) {
+    if (req.body || req.body.account) {
         Account.create({
             uname: req.body.uname,
             psw: req.body.psw,
@@ -102,38 +101,41 @@ app.post('/', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-    res.redirect('post-detail', { posts: posts });       
-});
-
-
-app.get('/posts/detail/:id', function (req, res) {
-    Post.create({
-        title: req.body.title, description: req.body.description, by: req.body.by
-    }, function(err, postDetail) {
+    Post.find({}, function (err, posts) {
         if (err) {
             console.log(err);
         } else {
-            Comments.findOne({ postId: req.params.postId, comment: req.params.comment }, function (err, comments) {
-                res.render('post-detail', { postDetail: postDetail, comments: comments, postId: req.params.id });
-            });
+            res.render('post-detail');
         }
     });
-    
-});
+});      
 
-io.on('connection', function (socket) {
-    socket.on('comment', function (data) {
-        var commentData = new Comments(data);
-        commentData.save();
-        socket.broadcast.emit('comment', data);
+
+
+app.get('/posts/detail/:id', function (req, res) {
+    Post.findById({
+        title: req.body.title,
+        description: req.body.description,
+        by: req.body.by,
+        post: req.body.post,
+    }, function (err, post) {
+        if (err) {
+            console.log(err);
+        } else {
+            
+                res.render('post-detail');
+           
+        }
     });
 });
 
+        
 
-//logout request
-app.get('/logout', function (req, res) {
-    req.session.destroy();
-    res.redirect("/views/login.html");
-});
+    
 
 
+    //logout request
+    app.get('/logout', function (req, res) {
+        req.session.destroy();
+        res.redirect("/views/login.html");
+    })
