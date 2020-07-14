@@ -18,7 +18,9 @@ var Post = require('./routes/Post');
 
 
 var app = express();
-var server = app.listen(5000, function () {
+var port = process.env.PORT || 5000;
+
+var server = app.listen(port, function () {
     var host = server.address().address
     var port = server.address().port
     console.log("Example app listening at http://%s:%s", host, port)
@@ -35,7 +37,7 @@ app.use(session({
 app.engine('ejs', require('ejs').__express);
 
 app.set('views', path.join(__dirname, '/views'));
-app.set('view engine','ejs');
+app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -44,38 +46,37 @@ app.use(cookieParser());
 app.use('/views', express.static(path.join(__dirname, '/views')))
 
 
-    
-  
- 
+
+
+
 
 app.get('/', function (req, res) {
-    res.redirect ("/views/login.html");
+    res.redirect("/views/login.html");
 });
 
 app.post('/login', function (req, res) {
     if (req.body || req.body.account) {
-       // Account.create({ uname: req.body.uname, psw: req.body.psw }, function (err, account) {
-          //  if (err) return res.redirect("/views/signup.html", { message: "account does'nt exist signup first" });
-           // else (account)
-           // console.log("thank u for loggin in"); 
-      //  });
+        // Account.create({ uname: req.body.uname, psw: req.body.psw }, function (err, account) {
+        //  if (err) return res.redirect("/views/signup.html", { message: "account does'nt exist signup first" });
+        // else (account)
+        // console.log("thank u for loggin in"); 
+        //  });
         Account.findOne({ psw: req.body.psw, uname: req.body.uname }, function (err, account) {
             if (err) return res.redirect("/views/login.html", { message: "login again" });
             else (account)
-            
             res.render("post-detail", { message: "ready for post" });
-                
+
         });
     }
 
 });
 
-app.get('/', function (req, res) {
+app.get('/signup', function (req, res) {
     res.redirect("/views/signup.html");
 });
 
 // sign up a new account handler
-app.post('/', function (req, res) {
+app.post('/signup', function (req, res) {
     if (req.body || req.body.account) {
         Account.create({
             uname: req.body.uname,
@@ -102,7 +103,7 @@ app.post('/', function (req, res) {
 
 });
 
-app.get('/', function (req, res) {
+app.get('/post-details', function (req, res) {
     Post.find({}, function (err, posts) {
         if (err) {
             console.log(err);
@@ -110,7 +111,7 @@ app.get('/', function (req, res) {
             res.render('post-detail');
         }
     });
-});      
+});
 
 
 
@@ -124,20 +125,20 @@ app.get('/posts/detail/:id', function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            
-                res.render('post-detail');
-           
+
+            res.render('post-detail');
+
         }
     });
 });
 
-        
-
-    
 
 
-    //logout request
-    app.get('/logout', function (req, res) {
-        req.session.destroy();
-        res.redirect("/views/login.html");
-    })
+
+
+
+//logout request
+app.get('/logout', function (req, res) {
+    req.session.destroy();
+    res.redirect("/views/login.html");
+})
