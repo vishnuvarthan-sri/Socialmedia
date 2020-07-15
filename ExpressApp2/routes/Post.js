@@ -14,7 +14,10 @@ var Posts = new  Schema({
     postDetail: String,
     
 });
-
+var db1 = mongoose.connection;
+db1.once("open", () => {
+    console.log("> successfully opened the database");
+});
 
 
 var Post = mongoose.model('Post', Posts);

@@ -17,6 +17,8 @@ var Post = require('./routes/Post');
 
 
 
+
+
 var app = express();
 var port = process.env.PORT || 5000;
 
@@ -49,59 +51,67 @@ app.use('/views', express.static(path.join(__dirname, '/views')))
 
 
 
-
 app.get('/', function (req, res) {
     res.redirect("/views/login.html");
 });
 
 app.post('/login', function (req, res) {
-    if (req.body || req.body.account) {
+    var uname = req.body.uname;
+    var psw = req.body.psw;
+    var login = new Account({ uname, psw });
+    console.log(login.uname);
         // Account.create({ uname: req.body.uname, psw: req.body.psw }, function (err, account) {
         //  if (err) return res.redirect("/views/signup.html", { message: "account does'nt exist signup first" });
         // else (account)
         // console.log("thank u for loggin in"); 
         //  });
-        Account.findOne({ psw: req.body.psw, uname: req.body.uname }, function (err, account) {
-            if (err) return res.redirect("/views/login.html", { message: "login again" });
+        Account.find({ psw, uname},function (err, account) {
+            if (err) return res.redirect("/views/signup.html", { message: "signup first" });
             else (account)
             res.render("post-detail", { message: "ready for post" });
 
         });
-    }
+    
 
 });
 
 app.get('/signup', function (req, res) {
     res.redirect("/views/signup.html");
+    
 });
 
 // sign up a new account handler
 app.post('/signup', function (req, res) {
-    if (req.body || req.body.account) {
-        Account.create({
-            uname: req.body.uname,
-            psw: req.body.psw,
-            email: req.body.email,
-        }, function (error, account) {
-            if (error) console.log("Error in adding User to Database");
-            else (account)
-            console.log("thank you for signing up");
+    var uname= req.body.uname;
+    var email= req.body.email;
+    var psw= req.body.psw;
+    var account = new Account({ uname, email, psw });
+    account.save(function (err) {
+        if (err) return handleError(err);
+    });
 
-        });
+    Account.find({
+        uname, email, psw
+    }, function (error, account) {
+        if (error) console.log("Error in adding User to Database");
+        else (account)
+        console.log("thank you for signing up");
 
-        Account.findOne({ uname: req.body.uname }, function
-            (err, account) {
-            if (err) res.redirect("/views/signup.html", { messsage: "there is already an account" });
-            else (account)
-            req.session.account = account;
-            req.session.save();
-            res.redirect("/views/login.html");
+    });
 
-        });
+    Account.findOne({ uname }, function
+        (err, account) {
+        if (err) res.redirect("/views/signup.html", { messsage: "there is already an account" });
+        else (account)
+        req.session.account = account;
+        req.session.save();
+        res.redirect("/views/login.html");
 
-    }
+    });
 
 });
+
+
 
 app.get('/post-details', function (req, res) {
     Post.find({}, function (err, posts) {
@@ -116,11 +126,17 @@ app.get('/post-details', function (req, res) {
 
 
 app.get('/posts/detail/:id', function (req, res) {
-    Post.findById({
-        title: req.body.title,
-        description: req.body.description,
-        by: req.body.by,
-        post: req.body.post,
+    var title = req.body.title;
+    var description = req.body.description;
+    var by = req.body.by;
+    var post=req.body.post;
+    var post1 = new Post({ title, description, by, post });
+    console.log(post1.title);
+    Post.find({
+        title,
+        description,
+        by,
+        post
     }, function (err, post) {
         if (err) {
             console.log(err);

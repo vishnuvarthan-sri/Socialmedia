@@ -23,6 +23,7 @@ accountSchema.pre('save', function (next) {
         bcrypt.hash(account.psw, salt, function (e, hash) {
             account.psw = hash;
             next();
+
         });
     });
 });
@@ -38,7 +39,9 @@ db.once("open", () => {
     console.log("> successfully opened the database");
 });
 
+
 var Account = mongoose.model('Account', accountSchema);
 module.exports = Account;
+
 
 
