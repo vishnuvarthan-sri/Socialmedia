@@ -7,67 +7,129 @@
         form {
             border: 2px solid #4fded7;
         }
-        body {
-            background-color: lightblue;
-        }
+        
         h1 {
-            background-color: darkblue;
+            background-color: dimgrey;
             color: white;
         }
-        input[type=text] {
-            width: 50%;
-            padding: 10px 10px;
-            margin: 8px 0;
+        label {
+            padding: 12px 12px 12px 0;
             display: inline-block;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
         }
-        img {
+        input[type=text], select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        .col-25 {
+            float: left;
+            width: 25%;
+            margin-top: 6px;
+        }
+
+        .col-75 {
+            float: left;
+            width: 75%;
+            margin-top: 6px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 12px 20px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            background-color: #f8f8f8;
+            resize: none;
+        }
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+        }
+
+        img.avatar {
+            width: 40%;
             border-radius: 50%;
+        }
+        @media screen and (max-width: 600px) {
+            .col-25, .col-75, input[type=submit] {
+                width: 100%;
+                margin-top: 0;
+            }
+        }
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
         }
         
     </style>
 </head>
 
 <body>
-    <h1>POST</h1>
-    <form action="/posts/detail/:id">
-        <div align="center">
-               <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
-             <label for="file" style="cursor: pointer;">Upload Image</label>
-               <img id="output" width="400" />
+   
+        <h1>POST</h1>
+        <div class="container">
+            <form action="/posts/detail/:id">
+                <div align="center" class="imgcontainer">
+                    <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
+                    <label for="file" style="cursor: pointer;">Upload Image</label>
+                    <img id="output"  class="avatar" />
 
-            <script>
-                var loadFile = function (event) {
-                    var image = document.getElementById('output');
-                    image.src = URL.createObjectURL(event.target.files[0]);
-                };
-            </script>
-        </div>     
+                    <script>
+                        var loadFile = function (event) {
+                            var image = document.getElementById('output');
+                            image.src = URL.createObjectURL(event.target.files[0]);
+                        };
+                    </script>
+                </div>
 
-        
-        <div align="center">
-        <label for="title">TITLE</label>
-        <input type="text" id="title" placeholder="title of post" /><br />
+                <div class="row">
+                    <div class="col-25">
+                        <label for="title">TITLE</label>
+                    </div>
+
+                    <div class="col-75">
+                        <input type="text" id="title" placeholder="title of post" /><br />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="description">DESCRIPTION</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="description" placeholder="descripion of post" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="by">BY</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="by" placeholder="post by" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-25">
+                        <label for="post"> </label>
+                    </div>
+                    <div class="col-75">
+                        <textarea id="post" name="post" placeholder="post here " rows="40" cols="40"></textarea><br />
+                    </div>
+                    </div>
+                        <div class="row">
+                            <input type="submit" value="Submit">
+                        </div>
+
+</form>
             </div>
-        <div align ="center">
-        <label for="description">DESCRIPTION</label>
-       <input type="text" id="description" placeholder="descripion of post" />
-            </div>
-        <div align="center">
-        <label for="by">BY</label>
-        <input type="text" id="by" placeholder="post by" />
-            </div>
-        <div align="center">
-        <label for="post"> </label>
-        <textarea id="post" name="post" placeholder="post here " rows="40" cols="40"></textarea><br />
-           </div>
-        </form>
-    
-    <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">Widget</a> is loading comments...</div>
-    <link rel="stylesheet" type="text/css" href="https://www.htmlcommentbox.com/static/skins/bootstrap/twitter-bootstrap.css?v=0" />
-    <script type="text/javascript" id="hcb">/*<!--*/ if (!window.hcb_user) { hcb_user = {}; } (function () { var s = document.createElement("script"), l = hcb_user.PAGE || ("" + window.location).replace(/'/g, "%27"), h = "https://www.htmlcommentbox.com"; s.setAttribute("type", "text/javascript"); s.setAttribute("src", h + "/jread?page=" + encodeURIComponent(l).replace("+", "%2B") + "&mod=%241%24wq1rdBcg%242xNFtlUcZOp%2FGnr2SquBG%2F" + "&opts=16862&num=10&ts=1594666082245"); if (typeof s != "undefined") document.getElementsByTagName("head")[0].appendChild(s); })(); /*-->*/</script>
-    
+
+        <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">Widget</a> is loading comments...</div>
+        <link rel="stylesheet" type="text/css" href="https://www.htmlcommentbox.com/static/skins/bootstrap/twitter-bootstrap.css?v=0" />
+        <script type="text/javascript" id="hcb">/*<!--*/ if (!window.hcb_user) { hcb_user = {}; } (function () { var s = document.createElement("script"), l = hcb_user.PAGE || ("" + window.location).replace(/'/g, "%27"), h = "https://www.htmlcommentbox.com"; s.setAttribute("type", "text/javascript"); s.setAttribute("src", h + "/jread?page=" + encodeURIComponent(l).replace("+", "%2B") + "&mod=%241%24wq1rdBcg%242xNFtlUcZOp%2FGnr2SquBG%2F" + "&opts=16862&num=10&ts=1594666082245"); if (typeof s != "undefined") document.getElementsByTagName("head")[0].appendChild(s); })(); /*-->*/</script>
+
 
 </body>
 </html>
