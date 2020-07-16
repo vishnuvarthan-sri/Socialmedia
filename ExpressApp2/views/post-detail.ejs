@@ -1,25 +1,54 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
-   POST On the media
+   
+    <style>
+        form {
+            border: 2px solid #4fded7;
+        }
+        body {
+            background-color: lightblue;
+        }
+        h1 {
+            background-color: darkblue;
+            color: white;
+        }
+    </style>
 </head>
+
 <body>
+    <h1>POST</h1>
     <form action="/posts/detail/:id">
-        <div align="left">
+        <div align="center">
+            <p><input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;"></p>
+            <p><label for="file" style="cursor: pointer;">Upload Image</label></p>
+            <p><img id="output" width="300" /></p>
+
+            <script>
+                var loadFile = function (event) {
+                    var image = document.getElementById('output');
+                    image.src = URL.createObjectURL(event.target.files[0]);
+                };
+            </script>
+        </div>     
+
+        
+        <div align="center">
         <label for="title"></label>
         <input type="text" id="title" placeholder="title of post" /><br />
             </div>
-        <div align ="left">
+        <div align ="center">
         <label for="description"></label>
        <input type="text" id="description" placeholder="descripion of post" />
             </div>
-        <div align="left">
+        <div align="center">
         <label for="by"></label>
         <input type="text" id="by" placeholder="post by" />
             </div>
         <div align="center">
-        <label for="post">Post here</label>
-        <textarea id="post" name="post" placeholder="post something" rows="10" cols="60"></textarea><br />
+        <label for="post"> </label>
+        <textarea id="post" name="post" placeholder="post here " rows="10" cols="60"></textarea><br />
            </div>
         </form>
     
