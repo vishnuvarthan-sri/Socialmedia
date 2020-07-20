@@ -56,8 +56,7 @@ app.get('/', function (req, res) {
 });
 
 app.post('/login', function (req, res) {
-    var uname = req.body.uname;
-    var psw = req.body.psw;
+    
     var login = new Account({ uname, psw });
     console.log(login.uname);
          Account.find({ psw, uname},function (err, account) {
