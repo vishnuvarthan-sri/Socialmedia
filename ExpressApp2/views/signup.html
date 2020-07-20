@@ -9,9 +9,7 @@
             box-sizing: border-box
         }
 
-        form {
-            border: 3px solid #36a62e;
-        }
+       
         
         input[type=text], input[type=password] {
             width: 100%;
@@ -80,7 +78,7 @@
 </head>
 <body>
 
-    <form action="/signup" method="post" style="border:1px solid #ccc">
+    <form action="/signup" method="post" style="border: 3px solid #36a62e">
         <div class="container">
             <h1>Sign Up</h1>
             <p>Please fill in this form to create an account.</p>
@@ -103,9 +101,11 @@
 
         </div>
     </form>
+    <div class="clearfix">
     <form action="/login" method="get">
     <button type="submit" class="loginbtn">login</button>
 </form>
+        </div>
 
 </body>
 </html>

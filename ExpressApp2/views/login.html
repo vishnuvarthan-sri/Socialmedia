@@ -1,107 +1,59 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> Login Page </title>
+    <meta charset="utf-8">
+    <title>Login</title>
     <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
+        .login-form {
+            width: 300px;
+            margin: 0 auto;
+            font-family: Tahoma, Geneva, sans-serif;
         }
 
-        form {
-            border: 3px solid #36a62e;
-            
-        }
-
-
-        input[type=text], input[type=password] {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            box-sizing: border-box;
-            border: none;
-            border-bottom: 2px solid green;
-        }
-
-       
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-        }
-            button:hover {
-                opacity: 0.8;
+            .login-form h1 {
+                text-align: center;
+                color: #4d4d4d;
+                font-size: 24px;
+                padding: 20px 0 20px 0;
             }
 
-        
-                .container {
-            padding: 16px;
-            
-        }
-        .imgcontainer {
-            text-align: center;
-            margin: 12px 0 12px 0;
-        }
+            .login-form input[type="password"],
+            .login-form input[type="text"] {
+                width: 100%;
+                padding: 15px;
+                border: 1px solid #dddddd;
+                margin-bottom: 15px;
+                box-sizing: border-box;
+            }
 
-        img.avatar {
-            width: 30%;
-            border-radius: 30%;
-        }
-        
-   
-
-       
-       
+            .login-form input[type="submit"],input[type="button"] {
+                width: 100%;
+                padding: 15px;
+                background-color: #535b63;
+                border: 0;
+                box-sizing: border-box;
+                cursor: pointer;
+                font-weight: bold;
+                color: #ffffff;
+            }
     </style>
 </head>
 <body>
-    <center> <h1> LOGIN </h1> </center>
-    
-        <form action="/login" method="post">
-            <div class="imagecontainer">
-                <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;" />
-                <label for="file" style="cursor: pointer;">Upload Image</label>
-                <img id="output"  class="avatar" />
-
-                <script>
-                    var loadFile = function (event) {
-                        var image = document.getElementById('output');
-                        image.src = URL.createObjectURL(event.target.files[0]);
-                    };
-                </script>
-            </div>
-            <div class="container">
-                <label for="uname"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="uname" required>
-
-                <label for="psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" required>
-
-
-                <button type="submit" method="post" class="loginbtn">Login</button>
-
-            </div>
-
-            <div class="container" style="background-color:#f1f1f1">
-
-
-            </div>
+    <div class="login-form">
+        <h1>Login</h1>
+        <form action="/login" method="POST">
+            <label for="uname"><b>Username:</b></label><br>
+            <input type="text" name="uname" placeholder="Username" required>
+            <label for="psw"><b>Password:</b></label><br>
+            <input type="password" name="psw" placeholder="Password" required>
+            <input type="submit" value="login">
         </form>
-
-        <form action="/signup" method="get">
-            <button name="signup" id="signup">
-                sign up
-            </button>
-
-
-        </form>
-    
-
-
+    </div> 
+    <br />
+    <div class="login-form">
+    <form action="/signup" method="get">
+        <input type="submit" name="signup" value="signup">
+    </form>
+        </div>
 </body>
 </html>

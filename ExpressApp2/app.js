@@ -60,12 +60,7 @@ app.post('/login', function (req, res) {
     var psw = req.body.psw;
     var login = new Account({ uname, psw });
     console.log(login.uname);
-        // Account.create({ uname: req.body.uname, psw: req.body.psw }, function (err, account) {
-        //  if (err) return res.redirect("/views/signup.html", { message: "account does'nt exist signup first" });
-        // else (account)
-        // console.log("thank u for loggin in"); 
-        //  });
-        Account.find({ psw, uname},function (err, account) {
+         Account.find({ psw, uname},function (err, account) {
             if (err) return res.redirect("/views/signup.html", { message: "signup first" });
             else (account)
             res.render("post-detail", { message: "ready for post" });
