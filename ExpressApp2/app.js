@@ -12,8 +12,8 @@ var io = require("socket.io")(http);
 var mongoose = require('mongoose');
 var session = require('express-session');
 mongoose.connect('mongodb+srv://vishnuvarthan:thalavishnu98@cluster0.6ngdn.mongodb.net/vishnuvarthan?retryWrites=true&w=majority');
-var Account = require('./routes/Account');
-var Post = require('./routes/Post');
+var Account = require('./routes/Account.js');
+var Post = require('./routes/Post.js');
 
 
 
@@ -51,15 +51,14 @@ app.use('/views', express.static(path.join(__dirname, '/views')))
 
 
 
+
 app.get('/', function (req, res) {
     res.redirect("/views/login.html");
 });
-
+              
 app.post('/login', function (req, res) {
-    
-    var login = new Account({ uname, psw });
-    console.log(login.uname);
-         Account.find({ psw, uname},function (err, account) {
+
+    Account.find({ uname: req.body.uname, psw: req.body.psw }, function (err, account) {
             if (err) return res.redirect("/views/signup.html", { message: "signup first" });
             else (account)
             res.render("post-detail", { message: "ready for post" });
@@ -76,69 +75,58 @@ app.get('/signup', function (req, res) {
 
 // sign up a new account handler
 app.post('/signup', function (req, res) {
-    var uname= req.body.uname;
-    var email= req.body.email;
-    var psw= req.body.psw;
-    var account = new Account({ uname, email, psw });
-    account.save(function (err) {
-        if (err) return handleError(err);
-    });
-
-    Account.find({
-        uname, email, psw
-    }, function (error, account) {
-        if (error) console.log("Error in adding User to Database");
-        else (account)
-        console.log("thank you for signing up");
-
-    });
-
-    Account.findOne({ uname }, function
-        (err, account) {
-        if (err) res.redirect("/views/signup.html", { messsage: "there is already an account" });
-        else (account)
-        req.session.account = account;
-        req.session.save();
+    let user = Account.findOne({ email: req.body.email });
+    if (user) {
+        return res.status(400).send('That user already exisits!');
+    } else {
+        // Insert the new user if they do not exist yet
+        user = new Account({
+            uname: req.body.uname,
+            email: req.body.email,
+            psw: req.body.psw
+        });
+         user.save();
+        console.log("thanku for sigining up")
         res.redirect("/views/login.html");
-
-    });
-
+    }
 });
+    
+       
 
+
+
+var postdetail = {
+    title:"",
+    description: "",
+    by: "",
+    post: "",
+}
 
 
 app.get('/post-details', function (req, res) {
-    Post.find({}, function (err, posts) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.render('post-detail');
-        }
-    });
+            res.render('post-detail'); 
 });
 
 
 
 app.get('/posts/detail/:id', function (req, res) {
-    var title = req.body.title;
-    var description = req.body.description;
-    var by = req.body.by;
-    var post=req.body.post;
-    var post1 = new Post({ title, description, by, post });
+   
+    var post1 = new Post(postdetail)
+   
     console.log(post1.title);
-    Post.find({
-        title,
-        description,
-        by,
-        post
+    post1.find({
+        title: req.body.title,
+        description: req.body.description,
+        by: req.body.by,
+        post: req.body.post
     }, function (err, post) {
         if (err) {
             console.log(err);
-        } else {
+        } else(post) 
 
             res.render('post-detail');
 
-        }
+        
     });
 });
 
