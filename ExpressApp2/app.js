@@ -57,8 +57,9 @@ app.get('/', function (req, res) {
 });
               
 app.post('/login', function (req, res) {
-    let user1 = Account.find({ uname: req.body.uname, psw: req.body.psw })
-    if (user1) {
+
+    var user = Account.find({ uname: req.body.uname, psw: req.body.psw })
+    if (user) {
         res.render("post-detail", { message: "ready for post" });
     }
     else {
@@ -74,17 +75,18 @@ app.get('/signup', function (req, res) {
 
 // sign up a new account handler
 app.post('/signup', function (req, res) {
-    let user = Account.find({ email: req.body.email, uname: req.body.uname, psw: req.body.psw });
+    var user = Account.findOne({ uname: req.body.uname });
     if (user) {
         return res.status(400).send('That user already exisits!');
     } else {
         // Insert the new user if they do not exist yet
-        user = new Account({
+        var user = new Account({
             uname: req.body.uname,
             email: req.body.email,
             psw: req.body.psw
         });
-         user.save();
+        user.save();
+        
         console.log("thanku for sigining up")
         res.redirect("/views/login.html");
     }
