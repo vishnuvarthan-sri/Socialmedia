@@ -57,15 +57,14 @@ app.get('/', function (req, res) {
 });
               
 app.post('/login', function (req, res) {
-
-    Account.find({ uname: req.body.uname, psw: req.body.psw }, function (err, account) {
-            if (err) return res.redirect("/views/signup.html", { message: "signup first" });
-            else (account)
-            res.render("post-detail", { message: "ready for post" });
-
-        });
-    
-
+    let user1 = Account.find({ uname: req.body.uname, psw: req.body.psw })
+    if (user1) {
+        res.render("post-detail", { message: "ready for post" });
+    }
+    else {
+        res.redirect("/views/signup.html", { message:"signup first" });
+        console.log(Account.uname);
+    }
 });
 
 app.get('/signup', function (req, res) {
