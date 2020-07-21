@@ -12,8 +12,8 @@ var io = require("socket.io")(http);
 var mongoose = require('mongoose');
 var session = require('express-session');
 mongoose.connect('mongodb+srv://vishnuvarthan:thalavishnu98@cluster0.6ngdn.mongodb.net/vishnuvarthan?retryWrites=true&w=majority');
-var Account = require('./routes/Account.js');
-var Post = require('./routes/Post.js');
+var Account = require('./routes/Account');
+var Post = require('./routes/Post');
 
 
 
@@ -74,7 +74,7 @@ app.get('/signup', function (req, res) {
 
 // sign up a new account handler
 app.post('/signup', function (req, res) {
-    let user = Account.findOne({ email: req.body.email });
+    let user = Account.find({ email: req.body.email, uname: req.body.uname, psw: req.body.psw });
     if (user) {
         return res.status(400).send('That user already exisits!');
     } else {
