@@ -57,9 +57,10 @@ app.get('/', function (req, res) {
 });
 
 app.post('/login', function (req, res) {
-    
+    var uname = req.body.uname;
+    var psw = req.body.psw;
 
-    Account.find({ uname: req.body.uname, psw: req.body.psw }, function (err, user) {
+    Account.findOne({ uname: uname, psw: psw }, function (err, user) {
         if (err)
             res.redirect("/views/signup.html");
         else {
@@ -77,14 +78,21 @@ app.get('/signup', function (req, res) {
 
 // sign up a new account handler
 app.post('/signup', function (req, res) {
-     // Insert the new user if they do not exist yet
+    // Insert the new user if they do not exist yet
+    var uname = req.body.uname;
+    var email = req.body.email;
+    var psw = req.bpdy.psw;
+
          var user = new Account({
-            uname: req.body.uname,
-            email: req.body.email,
-            psw: req.body.psw
+            uname:uname,
+             email: email,
+             psw: psw 
         });
-        user.save();
-        console.log("thanku for sigining up")
+    user.save(function (err) {
+        if (err) throw err;
+        console.dir(user);
+        res.send('Account created successfully (email): ' + email);
+    });
         res.redirect("/views/login.html");
     
 });
