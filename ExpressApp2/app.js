@@ -59,13 +59,12 @@ app.get('/', function (req, res) {
 app.post('/login', function (req, res) {
     
 
-    var user = Account.find({ uname: req.body.uname, psw: req.body.psw }); 
-    if (user) {
-        console.log(user.uname);
-        res.render("post-detail");
-    }
-    else {
-        res.redirect("/views/signup.html");
+    Account.find({ uname: req.body.uname, psw: req.body.psw }, function (err, user) {
+        if (err)
+            res.redirect("/views/signup.html");
+        else {
+            console.log("thanking you for login ");
+            res.render('post-detail');
         
     }
     
