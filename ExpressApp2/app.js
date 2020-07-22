@@ -91,7 +91,7 @@ app.post('/signup', function (req, res) {
     user.save(function (err) {
         if (err) throw err;
         console.dir(user);
-        res.send('Account created successfully (email): ' + email);
+        res.send('Account created successfully: ' + uname);
     });
         res.redirect("/views/login.html");
     
