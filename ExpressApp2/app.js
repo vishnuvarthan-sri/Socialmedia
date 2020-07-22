@@ -45,7 +45,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use('/views', express.static(path.join(__dirname, '/views')))
+app.use('views', express.static(path.join(__dirname, '/views')))
 
 
 
@@ -55,18 +55,20 @@ app.use('/views', express.static(path.join(__dirname, '/views')))
 app.get('/', function (req, res) {
     res.redirect("/views/login.html");
 });
-              
-app.post('/login', function (req, res) {
 
-    Account.find({ uname: req.body.uname, psw: req.body.psw }, function (err, user) {
-        if (user) {
-            res.render({ message: "ready for post" }, "post-detail");
-        }
-        else(err) 
-        res.redirect({ message: "signup first" }, "/views/signup.html");
-            console.log(Account.uname);
+app.post('/login', function (req, res) {
+    
+
+    var user = Account.find({ uname: req.body.uname, psw: req.body.psw }); 
+    if (user) {
+        console.log(user.uname);
+        res.render("post-detail");
+    }
+    else {
+        res.redirect("/views/signup.html");
         
-    });
+    }
+    
 });
 
 app.get('/signup', function (req, res) {
@@ -76,21 +78,16 @@ app.get('/signup', function (req, res) {
 
 // sign up a new account handler
 app.post('/signup', function (req, res) {
-    var user = Account.findOne({ uname: req.body.uname });
-    if (user) {
-        return res.status(400).send('That user already exisits!');
-    } else {
-        // Insert the new user if they do not exist yet
-        var user = new Account({
+     // Insert the new user if they do not exist yet
+         var user = new Account({
             uname: req.body.uname,
             email: req.body.email,
             psw: req.body.psw
         });
         user.save();
-        
         console.log("thanku for sigining up")
         res.redirect("/views/login.html");
-    }
+    
 });
     
        
