@@ -14,14 +14,8 @@ var session = require('express-session');
 mongoose.connect('mongodb+srv://vishnuvarthan:thalavishnu98@cluster0.6ngdn.mongodb.net/vishnuvarthan?retryWrites=true&w=majority');
 var Account = require('./routes/Account');
 var Post = require('./routes/Post');
-
-
-
-
-
 var app = express();
 var port = process.env.PORT || 5000;
-
 var server = app.listen(port, function () {
     var host = server.address().address
     var port = server.address().port
@@ -32,49 +26,33 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
-
-
-
-
 app.engine('ejs', require('ejs').__express);
-
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
-
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use('/views',express.static(path.join(__dirname, '/views')));
-
-
-
-
-
-
 app.get('/', function (req, res) {
     res.redirect("/views/login.html");
 });
-
 app.post('/login', function (req, res) {
     var uname = req.body.uname;
     var psw = req.body.psw;
 
     Account.find({ uname: uname, psw: psw }, function (err, user) {
         if (err) return res.redirect("/views/signup.html");
-
-        else (user)
+        if (!user) return res.send(401);
         res.render('post-detail'); 
 
     });
     
 });
-
 app.get('/signup', function (req, res) {
     res.redirect("/views/signup.html");
     
 });
-
 // sign up a new account handler
 app.post('/signup', function (req, res) {
     // Insert the new user if they do not exist yet
@@ -96,20 +74,9 @@ app.post('/signup', function (req, res) {
     return res.redirect("/views/login.html");
     
 });
-    
-       
-
-
-
-
-
-
 app.get('/post-details', function (req, res) {
             res.render('post-detail'); 
 });
-
-
-
 app.get('/posts/detail/:id', function (req, res) {
    
     var post1 = new Post({
@@ -130,12 +97,6 @@ app.get('/posts/detail/:id', function (req, res) {
         res.render('post-detail');
     }
 });
-
-
-
-
-
-
 //logout request
     app.get('/logout', function (req, res) {
         req.session.destroy();
