@@ -45,7 +45,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use('/views', express.static(path.join(__dirname, '/views')))
+app.use('/views',express.static(path.join(__dirname, '/views')));
 
 
 
@@ -60,13 +60,11 @@ app.post('/login', function (req, res) {
     var uname = req.body.uname;
     var psw = req.body.psw;
 
-    Account.findOne({ uname: uname, psw: psw }, function (err) {
-        if (err)
-            res.redirect("/views/signup.html");
-        else {
-            console.log("thanking you for login ");
-            res.render('post-detail');
-        }
+    Account.findOne({ uname: uname, psw: psw }, function (err, user) {
+        if (err) throw err;
+        if (!user) return res.redirect("/views/signup.html");
+        console.log("thanking you for login ");
+        res.render('post-detail');
 
     });
     
@@ -94,7 +92,8 @@ app.post('/signup', function (req, res) {
         console.dir(user);
         res.send('Account created successfully: ' + uname);
     });
-        res.redirect("/views/login.html");
+
+    return res.redirect("/views/login.html");
     
 });
     
