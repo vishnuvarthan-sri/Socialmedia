@@ -60,14 +60,15 @@ app.post('/login', function (req, res) {
     var uname = req.body.uname;
     var psw = req.body.psw;
 
-    Account.findOne({ uname: uname, psw: psw }, function (err, user) {
+    Account.findOne({ uname: uname, psw: psw }, function (err) {
         if (err)
             res.redirect("/views/signup.html");
         else {
             console.log("thanking you for login ");
             res.render('post-detail');
-        
-    }
+        }
+
+    });
     
 });
 
@@ -101,12 +102,7 @@ app.post('/signup', function (req, res) {
 
 
 
-var postdetail = {
-    title:"",
-    description: "",
-    by: "",
-    post: "",
-}
+
 
 
 app.get('/post-details', function (req, res) {
@@ -117,23 +113,19 @@ app.get('/post-details', function (req, res) {
 
 app.get('/posts/detail/:id', function (req, res) {
    
-    var post1 = new Post(postdetail)
-   
-    console.log(post1.title);
-    post1.find({
+    var post1 = new Post({
         title: req.body.title,
         description: req.body.description,
         by: req.body.by,
         post: req.body.post
-    }, function (err, post) {
-        if (err) {
-            console.log(err);
-        } else(post) 
 
-            res.render('post-detail');
-
-        
     });
+    post1.save();
+    if (post1)
+        console.log(post1.title);
+    else {
+        res.render('post-detail');
+    }
 });
 
 
@@ -142,7 +134,7 @@ app.get('/posts/detail/:id', function (req, res) {
 
 
 //logout request
-app.get('/logout', function (req, res) {
-    req.session.destroy();
-    res.redirect("/views/login.html");
-})
+    app.get('/logout', function (req, res) {
+        req.session.destroy();
+        res.redirect("/views/login.html");
+    });
