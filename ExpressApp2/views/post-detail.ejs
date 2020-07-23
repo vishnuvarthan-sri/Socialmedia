@@ -5,7 +5,12 @@
    
     <style>
         form {
-            border: 2px solid #4fded7;
+            border: 3px solid #4fded7;
+        }
+        body {
+            font-family: Arial;
+            padding: 20px;
+            background: #f1f1f1;
         }
        .button {
             background-color: dimgrey;
@@ -17,17 +22,24 @@
             width: 20%;
             opacity: 0.9;
         }
-        
-        h1 {
-            background-color: dimgrey;
-            color: white;
+        .header {
+            padding: 20px;
+            font-size: 10px;
+            text-align: center;
+            background-color:dimgrey;
         }
+        .card {
+            background-color: white;
+            padding: 20px;
+            margin-top: 20px;
+        }
+      
         label {
             padding: 12px 12px 12px 0;
             display: inline-block;
         }
         input[type=text], select, textarea {
-            width: 80%;
+            width: 50%;
             padding: 12px;
             border: 1px solid #ccc;
             border-radius: 4px;
@@ -40,7 +52,7 @@
         }
 
         .col-75 {
-            float: left;
+            float: right;
             width: 75%;
             margin-top: 6px;
         }
@@ -56,18 +68,19 @@
         }
         .imgcontainer {
             text-align: center;
-            margin: 10px 0 10px 0;
             border-radius:50%;
+            padding:20%;
         }
 
         img.avatar {
             width: 30%;
             border-radius: 30%;
         }
-        @media screen and (max-width: 600px) {
+        @media screen and (max-width: 800px) {
             .col-25, .col-75 {
                 width: 100%;
                 margin-top: 0;
+                padding:0;
             }
         }
         .row:after {
@@ -80,67 +93,71 @@
 </head>
 
 <body>
-   
+    <div class="header">
         <h1>POST</h1>
-        <div class="container">
+    </div>
+   
             <form action="/posts/detail/:id">
-                <div align="center" class="imgcontainer">
-                    <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
-                    <label for="file" style="cursor: pointer;">Upload Image</label>
-                    <img id="output" class="avatar" />
+                <div class="card">
+                    <div class="row">
+                        <div align="center" class="imgcontainer">
+                            <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
+                            <label for="file" style="cursor: pointer;">Upload Image</label>
+                            <img id="output" class="avatar" />
 
-                    <script>
-                        var loadFile = function (event) {
-                            var image = document.getElementById('output');
-                            image.src = URL.createObjectURL(event.target.files[0]);
-                        };
-                    </script>
-                </div>
+                            <script>
+                                var loadFile = function (event) {
+                                    var image = document.getElementById('output');
+                                    image.src = URL.createObjectURL(event.target.files[0]);
+                                };
+                            </script>
+                        </div>
 
-                <div class="row">
-                    <div class="col-25">
-                        <label for="title">TITLE</label>
-                    </div>
 
-                    <div class="col-75">
-                        <input type="text" id="title" placeholder="title of post" /><br />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-25">
-                        <label for="description">DESCRIPTION</label>
-                    </div>
-                    <div class="col-75">
-                        <input type="text" id="description" placeholder="descripion of post" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-25">
-                        <label for="by">BY</label>
-                    </div>
-                    <div class="col-75">
-                        <input type="text" id="by" placeholder="post by" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-25">
-                        <label for="post"> </label>
-                    </div>
-                    <div class="col-75">
-                        <textarea id="post" name="post" placeholder="post here " rows="40" cols="40"></textarea><br />
-                    </div>
-                </div>
+                        <div class="col-25">
+                            <label for="title">TITLE</label>
+                        </div>
 
-                
-                <input type="submit" class="button" formaction="/logout" value="logout">
+                        <div class="col-75">
+                            <input type="text" id="title" placeholder="title of post" /><br />
+                        </div>
 
+
+                        <div class="col-25">
+                            <label for="description">DESCRIPTION</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="text" id="description" placeholder="descripion of post" />
+                        </div>
+
+
+                        <div class="col-25">
+                            <label for="by">BY</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="text" id="by" placeholder="post by" />
+                        </div>
+
+
+                        <div class="col-25">
+                            <label for="post"> </label>
+                        </div>
+                        <div class="col-75">
+                            <textarea id="post" name="post" placeholder="post here " rows="40" cols="40"></textarea><br />
+                        </div>
+
+
+
+                        <input type="submit" class="button" formaction="/logout" value="logout">
+                    </div>
+                </div>
 
             </form>
-            </div>
+    
 
-        <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">Widget</a> is loading comments...</div>
-        <link rel="stylesheet" type="text/css" href="https://www.htmlcommentbox.com/static/skins/bootstrap/twitter-bootstrap.css?v=0" />
-        <script type="text/javascript" id="hcb">/*<!--*/ if (!window.hcb_user) { hcb_user = {}; } (function () { var s = document.createElement("script"), l = hcb_user.PAGE || ("" + window.location).replace(/'/g, "%27"), h = "https://www.htmlcommentbox.com"; s.setAttribute("type", "text/javascript"); s.setAttribute("src", h + "/jread?page=" + encodeURIComponent(l).replace("+", "%2B") + "&mod=%241%24wq1rdBcg%242xNFtlUcZOp%2FGnr2SquBG%2F" + "&opts=16862&num=10&ts=1594666082245"); if (typeof s != "undefined") document.getElementsByTagName("head")[0].appendChild(s); })(); /*-->*/</script>
+    <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">Widget</a> is loading comments...</div>
+    <link rel="stylesheet" type="text/css" href="https://www.htmlcommentbox.com/static/skins/bootstrap/twitter-bootstrap.css?v=0" />
+    <script type="text/javascript" id="hcb">/*<!--*/ if (!window.hcb_user) { hcb_user = {}; } (function () { var s = document.createElement("script"), l = hcb_user.PAGE || ("" + window.location).replace(/'/g, "%27"), h = "https://www.htmlcommentbox.com"; s.setAttribute("type", "text/javascript"); s.setAttribute("src", h + "/jread?page=" + encodeURIComponent(l).replace("+", "%2B") + "&mod=%241%24wq1rdBcg%242xNFtlUcZOp%2FGnr2SquBG%2F" + "&opts=16862&num=10&ts=1594666082245"); if (typeof s != "undefined") document.getElementsByTagName("head")[0].appendChild(s); })(); /*-->*/</script>
 
 
 </body>

@@ -12,25 +12,10 @@ var accountSchema = new Schema({
     psw: {
         type: String,
         required: true,
-        select: false
+        
     }
 });
 
-
-accountSchema.pre('save', function (next) {
-    var account = this;
-    bcrypt.genSalt(10, function (error, salt) {
-        bcrypt.hash(account.psw, salt, function (e, hash) {
-            account.psw = hash;
-            next();
-
-        });
-    });
-});
-
-accountSchema.methods.compare = function (pw) {
-    return bcrypt.compareSync(pw, this.psw);
-}
 var db = mongoose.connection;
 db.on("error", () => {
     console.log("> error occurred from the database");

@@ -60,11 +60,11 @@ app.post('/login', function (req, res) {
     var uname = req.body.uname;
     var psw = req.body.psw;
 
-    Account.findOne({ uname: uname, psw: psw }, function (err, user) {
-        if (err) throw err;
-        if (!user) return res.redirect("/views/signup.html");
-        console.log("thanking you for login ");
-        res.render('post-detail');
+    Account.find({ uname: uname, psw: psw }, function (err, user) {
+        if (err) return res.redirect("/views/signup.html");
+
+        else (user)
+        res.render('post-detail'); 
 
     });
     
@@ -80,17 +80,17 @@ app.post('/signup', function (req, res) {
     // Insert the new user if they do not exist yet
     var uname = req.body.uname;
     var email = req.body.email;
-    var psw = req.bpdy.psw;
+    var psw = req.body.psw;
 
          var user = new Account({
             uname:uname,
              email: email,
              psw: psw 
-        });
+         });
     user.save(function (err) {
         if (err) throw err;
-        console.dir(user);
-        res.send('Account created successfully: ' + uname);
+
+        console.log('User saved successfully!');
     });
 
     return res.redirect("/views/login.html");
@@ -119,7 +119,11 @@ app.get('/posts/detail/:id', function (req, res) {
         post: req.body.post
 
     });
-    post1.save();
+    post1.save(function (err) {
+        if (err) throw err;
+
+        console.log('User saved successfully!');
+    });
     if (post1)
         console.log(post1.title);
     else {
