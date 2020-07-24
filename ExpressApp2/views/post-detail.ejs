@@ -15,7 +15,7 @@
        .button {
             background-color: dimgrey;
             color: white;
-            padding: 14px 10px;
+            padding: 12px 10px;
             margin: 8px 0;
             border: none;
             cursor: pointer;
@@ -69,7 +69,7 @@
         .imgcontainer {
             text-align: center;
             border-radius:50%;
-            padding:20%;
+           
         }
 
         img.avatar {
@@ -100,20 +100,6 @@
             <form action="/posts/detail/:id">
                 <div class="card">
                     <div class="row">
-                        <div align="center" class="imgcontainer">
-                            <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
-                            <label for="file" style="cursor: pointer;">Upload Image</label>
-                            <img id="output" class="avatar" />
-
-                            <script>
-                                var loadFile = function (event) {
-                                    var image = document.getElementById('output');
-                                    image.src = URL.createObjectURL(event.target.files[0]);
-                                };
-                            </script>
-                        </div>
-
-
                         <div class="col-25">
                             <label for="title">TITLE</label>
                         </div>
@@ -121,8 +107,6 @@
                         <div class="col-75">
                             <input type="text" id="title" placeholder="title of post" /><br />
                         </div>
-
-
                         <div class="col-25">
                             <label for="description">DESCRIPTION</label>
                         </div>
@@ -138,6 +122,18 @@
                             <input type="text" id="by" placeholder="post by" />
                         </div>
 
+                        <div align="center" class="imgcontainer">
+                            <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
+                            <label for="file" style="cursor: pointer;">Upload Image</label>
+                            <img id="output" class="avatar" />
+
+                            <script>
+                                var loadFile = function (event) {
+                                    var image = document.getElementById('output');
+                                    image.src = URL.createObjectURL(event.target.files[0]);
+                                };
+                            </script>
+                        </div>
 
                         <div class="col-25">
                             <label for="post"> </label>
