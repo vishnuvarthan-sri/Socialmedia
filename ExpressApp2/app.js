@@ -67,7 +67,6 @@ app.post('/signup', function (req, res) {
          });
     user.save(function (err) {
         if (err) throw err;
-
         console.log('User saved successfully!');
     });
 
