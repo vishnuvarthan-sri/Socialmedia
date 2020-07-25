@@ -1,2 +1,2 @@
-# ExpressApp2
+# My social media
 mynodejsapplication
