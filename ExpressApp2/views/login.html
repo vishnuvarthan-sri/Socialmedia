@@ -16,6 +16,11 @@
                 font-size: 24px;
                 padding: 20px 0 20px 0;
             }
+        .myButton {
+            position: fixed; /* or position: absolute; */
+            top: 0;
+            right: 0;
+        }
 
             .login-form input[type="password"],
             .login-form input[type="text"] {
@@ -55,5 +60,10 @@
         <input type="submit" name="signup" value="signup">
     </form>
         </div>
+    <div class="myButton">
+        <form action="/logout" method="get">
+            <input type="submit"value="logout" />
+        </form>
+    </div>
 </body>
 </html>

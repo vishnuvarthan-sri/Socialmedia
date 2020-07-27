@@ -91,11 +91,8 @@ app.get('/posts/detail/:id', function (req, res) {
 
         console.log('User saved successfully!');
     });
-    if (post1)
-        console.log(post1.title);
-    else {
-        res.render('post-detail');
-    }
+    res.render('post-detail');
+    
 });
 //logout request
     app.get('/logout', function (req, res) {
