@@ -71,7 +71,7 @@ app.post('/signup', function (req, res) {
         console.log('User saved successfully!');
     });
 
-    return res.redirect("/views/login.html");
+   res.redirect("/views/login.html");
     
 });
 app.get('/post-details', function (req, res) {
