@@ -12,7 +12,7 @@
             padding: 20px;
             background: #f1f1f1;
         }
-       .button {
+       input[type=submit] {
             background-color: dimgrey;
             color: white;
             padding: 12px 10px;
@@ -96,32 +96,16 @@
     <div class="header">
         <h1>POST</h1>
     </div>
-   
             <form action="/posts/detail/:id">
                 <div class="card">
                     <div class="row">
-                        <div class="col-25">
-                            <label for="title">TITLE</label>
-                        </div>
 
-                        <div class="col-75">
-                            <input type="text" id="title" placeholder="title of post" /><br />
-                        </div>
                         <div class="col-25">
-                            <label for="description">DESCRIPTION</label>
+                            <label for="description"> POST DESCRIPTION</label>
                         </div>
                         <div class="col-75">
                             <input type="text" id="description" placeholder="descripion of post" />
                         </div>
-
-
-                        <div class="col-25">
-                            <label for="by">BY</label>
-                        </div>
-                        <div class="col-75">
-                            <input type="text" id="by" placeholder="post by" />
-                        </div>
-
                         <div align="center" class="imgcontainer">
                             <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
                             <label for="file" style="cursor: pointer;">Upload Image</label>
@@ -141,11 +125,10 @@
                         <div class="col-75">
                             <textarea id="post" name="post" placeholder="post here " rows="40" cols="40"></textarea><br />
                         </div>
-
-
-
-                        <input type="submit" class="button" formaction="/logout" value="logout">
                     </div>
+                </div>
+                <div class="col-75">
+                    <input type="submit" value="Post" onClick="location.href='Page1.html'"/>
                 </div>
 
             </form>

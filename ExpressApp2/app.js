@@ -33,7 +33,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use('/views',express.static(path.join(__dirname, '/views')));
+app.use('/views', express.static(path.join(__dirname, '/views')));
+
 app.get('/', function (req, res) {
     res.redirect("/views/login.html");
 });
@@ -41,7 +42,7 @@ app.post('/login', function (req, res) {
     var uname = req.body.uname;
     var psw = req.body.psw;
 
-    Account.find({ uname: uname, psw: psw }, function (err, user) {
+    Account.findOne({ uname: uname, psw: psw }, function (err, user) {
         if (err) return res.redirect("/views/signup.html");
         if (!user) return res.send(401);
         res.render('post-detail'); 
