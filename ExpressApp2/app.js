@@ -80,9 +80,9 @@ app.get('/post-details', function (req, res) {
 app.get('/posts/detail/:id', function (req, res) {
    
     var post1 = new Post({
-        title: req.body.title,
+        
         description: req.body.description,
-        by: req.body.by,
+       
         post: req.body.post
 
     });
