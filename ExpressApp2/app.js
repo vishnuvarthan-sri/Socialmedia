@@ -77,12 +77,11 @@ app.post('/signup', function (req, res) {
 app.get('/post-details', function (req, res) {
             res.render('post-detail'); 
 });
-app.get('/posts/detail/:id', function (req, res) {
+app.post('/posts/detail/:id', function (req, res) {
    
     var post1 = new Post({
         
-        description: req.body.description,
-       
+        description: req.body.description, 
         post: req.body.post
 
     });
@@ -91,7 +90,6 @@ app.get('/posts/detail/:id', function (req, res) {
 
         console.log('User saved successfully!');
     });
-    res.render('post-detail');
     
 });
 //logout request

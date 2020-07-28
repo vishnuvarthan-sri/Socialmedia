@@ -67,6 +67,7 @@
             resize: none;
         }
         .imgcontainer {
+            float:right;
             text-align: center;
             border-radius:50%;
            
@@ -106,14 +107,14 @@
             <div class="row">
 
                 <div class="col-25">
-                    <label for="description"> POST DESCRIPTION</label>
+                    <label for="description"> POST DESCRIPTION:</label>
                 </div>
                 <div class="col-75">
                     <input type="text" id="description" placeholder="descripion of post" />
                 </div>
-                <div align="center" class="imgcontainer">
+                <div  class="imgcontainer">
                     <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
-                    <label for="file" style="cursor: pointer;">Upload Image</label>
+                    <label for="file" style="cursor: pointer;">Image</label>
                     <img id="output" class="avatar" />
 
                     <script>
@@ -125,23 +126,21 @@
                 </div>
 
                 <div class="col-25">
-                    <label for="post"> </label>
+                    <label for="post">Post: </label>
                 </div>
                 <div class="col-75">
                     <textarea id="post" name="post" placeholder="post here " rows="40" cols="40"></textarea><br />
                 </div>
             </div>
         </div>
-        <div class="col-75">
-            <input type="submit" value="Post" onClick="location.href='page.ejs'" />
+        <div class="col-25">
+            <input type="button" value="Post" onClick="window.location.href='page.ejs'" />
         </div>
-
+        <div class="myButton">
+         <input type="submit" formaction="/logout" formmethod="get"  value="logout" />
+        </div>
     </form>
-    <div class="myButton">
-        <form action="/logout" method="get">
-            <input type="submit" value="logout" />
-        </form>
-    </div>
+    
 
 </body>
 </html>

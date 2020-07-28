@@ -29,24 +29,27 @@
                 outline: none;
             }
 
-       
 
 
-        .signup-form input[type="submit"], input[type="button"] {
-            width: 100%;
-            padding: 15px;
-            background-color: #535b63;
-            border: 0;
-            box-sizing: border-box;
-            cursor: pointer;
-            font-weight: bold;
-            color: #ffffff;
-        }
+
+            .signup-form input[type="submit"], input[type="button"] {
+                width: 100%;
+                padding: 15px;
+                border: 1px solid #dddddd;
+                margin-bottom: 15px;
+                box-sizing: border-box;
+                color: #45b543;
+            }
 
             button:hover {
                 opacity: 1;
             }
-
+        .signup-form h1 {
+            text-align: center;
+            color: #45b543;
+            font-size: 24px;
+            padding: 20px 0 20px 0;
+        }
         
       
 
@@ -76,10 +79,11 @@
 
 </head>
 <body>
-    <h1>Sign Up</h1>
+    
     <div class="signup-form">
+        <h1>Sign Up</h1>
         <form action="/signup" method="post">
-            
+
             <label for="uname"><b>Username</b></label>
             <input type="text" placeholder="Enter Username" name="uname" required>
 
@@ -95,7 +99,7 @@
     </div>
     <br />
     <div class="signup-form">
-        <form action="/login" method="get">
+        <form action="/login" method="post">
             <input type="submit" value="login" />
         </form>
     </div>
