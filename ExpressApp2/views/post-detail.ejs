@@ -102,7 +102,7 @@
     <div class="header">
         <h1>POST</h1>
     </div>
-    <form action="/posts/detail/:id">
+    <form action="/posts/detail/:id" method="post">
         <div class="card">
             <div class="row">
 
@@ -137,7 +137,7 @@
             <input type="button" value="Post" onClick="window.location.href='page.ejs'" />
         </div>
         <div class="myButton">
-         <input type="submit" formaction="/logout" formmethod="get"  value="logout" />
+         <input type="submit" formaction="/logout" formmethod="post"  value="logout" />
         </div>
     </form>
     
