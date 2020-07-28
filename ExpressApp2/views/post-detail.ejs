@@ -71,6 +71,11 @@
             border-radius:50%;
            
         }
+        .myButton {
+            position: fixed; /* or position: absolute; */
+            top: 0;
+            right: 0;
+        }
 
         img.avatar {
             width: 30%;
@@ -96,42 +101,47 @@
     <div class="header">
         <h1>POST</h1>
     </div>
-            <form action="/posts/detail/:id">
-                <div class="card">
-                    <div class="row">
+    <form action="/posts/detail/:id">
+        <div class="card">
+            <div class="row">
 
-                        <div class="col-25">
-                            <label for="description"> POST DESCRIPTION</label>
-                        </div>
-                        <div class="col-75">
-                            <input type="text" id="description" placeholder="descripion of post" />
-                        </div>
-                        <div align="center" class="imgcontainer">
-                            <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
-                            <label for="file" style="cursor: pointer;">Upload Image</label>
-                            <img id="output" class="avatar" />
-
-                            <script>
-                                var loadFile = function (event) {
-                                    var image = document.getElementById('output');
-                                    image.src = URL.createObjectURL(event.target.files[0]);
-                                };
-                            </script>
-                        </div>
-
-                        <div class="col-25">
-                            <label for="post"> </label>
-                        </div>
-                        <div class="col-75">
-                            <textarea id="post" name="post" placeholder="post here " rows="40" cols="40"></textarea><br />
-                        </div>
-                    </div>
+                <div class="col-25">
+                    <label for="description"> POST DESCRIPTION</label>
                 </div>
                 <div class="col-75">
-                    <input type="submit" value="Post" onClick="location.href='page.ejs'"/>
+                    <input type="text" id="description" placeholder="descripion of post" />
+                </div>
+                <div align="center" class="imgcontainer">
+                    <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
+                    <label for="file" style="cursor: pointer;">Upload Image</label>
+                    <img id="output" class="avatar" />
+
+                    <script>
+                        var loadFile = function (event) {
+                            var image = document.getElementById('output');
+                            image.src = URL.createObjectURL(event.target.files[0]);
+                        };
+                    </script>
                 </div>
 
-            </form>
-    
+                <div class="col-25">
+                    <label for="post"> </label>
+                </div>
+                <div class="col-75">
+                    <textarea id="post" name="post" placeholder="post here " rows="40" cols="40"></textarea><br />
+                </div>
+            </div>
+        </div>
+        <div class="col-75">
+            <input type="submit" value="Post" onClick="location.href='page.ejs'" />
+        </div>
+
+    </form>
+    <div class="myButton">
+        <form action="/logout" method="get">
+            <input type="submit" value="logout" />
+        </form>
+    </div>
+
 </body>
 </html>
