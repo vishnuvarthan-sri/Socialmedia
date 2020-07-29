@@ -5,13 +5,9 @@ var http = require("http");
 var io = require("socket.io")(http);
 mongoose.connect('mongodb+srv://vishnuvarthan:thalavishnu98@cluster0.6ngdn.mongodb.net/vishnuvarthan?retryWrites=true&w=majority');
 
-var Posts = new  Schema({
-    title: String,
+var Posts = new  Schema({  
     description: String,
-    by: String,
-    post: String,
-    postDetail: String,
-    
+    post: String,  
 });
 var db1 = mongoose.connection;
 db1.once("open", () => {

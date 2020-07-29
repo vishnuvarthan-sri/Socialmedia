@@ -43,7 +43,7 @@ app.post('/login', function (req, res) {
     var psw = req.body.psw;
 
     Account.findOne({ uname: uname, psw: psw }, function (err, user) {
-        if (err) return res.redirect("/views/signup.html");
+        if (err) res.redirect("/views/signup.html");
         if (!user) return res.send(401);
         res.render('post-detail'); 
 
@@ -69,6 +69,7 @@ app.post('/signup', function (req, res) {
     user.save(function (err) {
         if (err) throw err;
         console.log('User saved successfully!');
+
     });
 
    res.redirect("/views/login.html");
@@ -81,7 +82,7 @@ app.post('/posts/detail/:id', function (req, res) {
    
     var post1 = new Post({
         
-        description: req.body.description, 
+        description: req.body.description,  
         post: req.body.post
 
     });
