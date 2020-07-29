@@ -67,15 +67,16 @@
             resize: none;
         }
         .imgcontainer {
-            float:right;
+            float: right;
             text-align: center;
-            border-radius:50%;
-           
+            border-radius: 50%;
+            margin-top: 6px;
         }
-        .myButton {
-            position: fixed; /* or position: absolute; */
-            top: 0;
-            right: 0;
+        .topright {
+            position: absolute;
+            top: 8px;
+            right: 16px;
+            font-size: 18px;
         }
 
         img.avatar {
@@ -83,10 +84,10 @@
             border-radius: 30%;
         }
         @media screen and (max-width: 800px) {
-            .col-25, .col-75 {
+            .col-25, .col-75, input[type=submit] {
                 width: 100%;
                 margin-top: 0;
-                padding:0;
+                padding: 0;
             }
         }
         .row:after {
@@ -129,15 +130,15 @@
                     <label for="post">Post: </label>
                 </div>
                 <div class="col-75">
-                    <textarea id="post" name="post" placeholder="post here " rows="40" cols="40"></textarea><br />
+                    <textarea id="post" name="post" placeholder="post here " rows="20" cols="40"></textarea><br />
                 </div>
             </div>
         </div>
         <div class="col-25">
-            <input type="button" value="Post" onClick="window.location.href='page.ejs'" />
+            <input type="button" value="Post" onClick="window.location.href='/views/page.ejs'" />
         </div>
-        <div class="myButton">
-         <input type="submit" formaction="/logout" formmethod="post"  value="logout" />
+        <div class="topright">
+         <input type="submit" formaction="/logout" formmethod="get"  value="logout" />
         </div>
     </form>
     
