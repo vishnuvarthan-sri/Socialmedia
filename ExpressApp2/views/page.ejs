@@ -11,11 +11,12 @@
     <title>POST</title>
 </head>
 <body>
-<form action="/posts/detail/:id">
+<form action="/posts/detail/:id" method="post">
 <link href="/views/post-detail.ejs" rel="import" />
+<input type ="text" onchange="post(event)">
     <script>
         window.onclick = post;
-        function post() {
+        var post = function (event){
             var post = document.getElementsById("post")[0].import;
             post.display();
         }
