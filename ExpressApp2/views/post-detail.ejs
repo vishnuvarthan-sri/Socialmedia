@@ -4,12 +4,14 @@
 <head>
    
     <style>
+        form {
+            border: 3px solid darkgreen;
+        }
         
         body {
             font-family: Arial;
             padding: 10px;
             background: #f1f1f1;
-            border: 3px solid darkgreen;
         }
        input[type=submit],input[type=button] {
             background-color: dimgrey;
@@ -23,7 +25,7 @@
         }
         .header {   
             font-size: 10px;
-            width:100%;
+            width:80%;
             background-color:dimgrey;
         }
             .header h1 {
@@ -94,7 +96,7 @@
 
 <body>
     <form action="/posts/detail/:id" method="post">
-       
+
         <div class="row">
             <div class="header">
                 <h1>POST</h1>
@@ -123,17 +125,17 @@
                 <textarea id="post" name="post" placeholder="post here " rows="20" cols="40"></textarea><br />
             </div>
         </div>
-        
-        
-    </form>
-    <div class="topright">
-        <input type="submit" formaction="/logout" formmethod="get" value="logout" />
-    </div>
 
+
+    </form>
+   
     <div id="HCB_comment_box"><a href="http://www.htmlcommentbox.com">Widget</a> is loading comments...</div>
     <link rel="stylesheet" type="text/css" href="https://www.htmlcommentbox.com/static/skins/bootstrap/twitter-bootstrap.css?v=0" />
     <script type="text/javascript" id="hcb">/*<!--*/ if (!window.hcb_user) { hcb_user = {}; } (function () { var s = document.createElement("script"), l = hcb_user.PAGE || ("" + window.location).replace(/'/g, "%27"), h = "https://www.htmlcommentbox.com"; s.setAttribute("type", "text/javascript"); s.setAttribute("src", h + "/jread?page=" + encodeURIComponent(l).replace("+", "%2B") + "&mod=%241%24wq1rdBcg%242xNFtlUcZOp%2FGnr2SquBG%2F" + "&opts=16862&num=10&ts=1594666082245"); if (typeof s != "undefined") document.getElementsByTagName("head")[0].appendChild(s); })(); /*-->*/</script>
 
+    <div class="topright">
+        <input type="submit" formaction="/logout" formmethod="get" value="logout" />
+    </div>
 
 </body>
 </html>
