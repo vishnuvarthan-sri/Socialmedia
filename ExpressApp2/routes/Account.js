@@ -13,6 +13,11 @@ var accountSchema = new Schema({
         type: String,
         required: true,
         
+    },
+    Cnpsw: {
+        type: String,
+        required: true,
+
     }
 });
 

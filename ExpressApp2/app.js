@@ -60,11 +60,13 @@ app.post('/signup', function (req, res) {
     var uname = req.body.uname;
     var email = req.body.email;
     var psw = req.body.psw;
+    var Cnpsw = req.body.Cnpsw;
 
          var user = new Account({
             uname:uname,
              email: email,
-             psw: psw 
+             psw: psw,
+             Cnpsw: Cnpsw
          });
     user.save(function (err) {
         if (err) throw err;
