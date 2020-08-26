@@ -10,17 +10,18 @@
             margin: 0 auto;
             font-family: Tahoma, Geneva, sans-serif;
         }
+
         body {
             margin: 0;
             background-color: aquamarine;
         }
 
-            .login-form h1 {
-                text-align: center;
-                color: #4d4d4d;
-                font-size: 24px;
-                padding: 20px 0 20px 0;
-            }
+        .login-form h1 {
+            text-align: center;
+            color: #4d4d4d;
+            font-size: 24px;
+            padding: 20px 0 20px 0;
+        }
 
         .myButton {
             position: fixed; /* or position: absolute; */
@@ -47,9 +48,26 @@
             font-weight: bold;
             color: #ffffff;
         }
+        .flash{
+            text-align:center;
+            border:inset;
+            background-color:chartreuse;
+           color:black;
+           font-weight:bold;
+        }
     </style>
+
+   
 </head>
+
 <body>
+
+    <% if(message.length>0) { %>
+    <div class="flash">
+        <%= message %>
+    </div>
+   <% }%>
+
     <div class="login-form">
         <h1>Login</h1>
         <form action="/login" method="POST">
@@ -59,13 +77,13 @@
             <input type="password" name="psw" placeholder="Password" required>
             <input type="submit" value="login">
         </form>
-    </div> 
+    </div>
     <br />
     <div class="login-form">
-    <form action="/signup" method="get">
-        <input type="submit" name="signup" value="signup">
-    </form>
-        </div>
-   
+        <form action="/signup" method="get">
+            <input type="submit" name="signup" value="signup">
+        </form>
+    </div>
+
 </body>
 </html>

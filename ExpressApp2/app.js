@@ -10,6 +10,7 @@ var mongo = require('mongodb');
 var http = require("http").Server(app);
 var io = require("socket.io")(http);
 var mongoose = require('mongoose');
+var flash = require('connect-flash'); 
 var session = require('express-session');
 mongoose.connect('mongodb+srv://vishnuvarthan:thalavishnu98@cluster0.6ngdn.mongodb.net/vishnuvarthan?retryWrites=true&w=majority');
 var Account = require('./routes/Account');
@@ -28,26 +29,34 @@ app.use(session({
 }));
 app.engine('ejs', require('ejs').__express);
 app.set('views', path.join(__dirname, '/views'));
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs',);
 app.use(logger('dev'));
+app.use(flash()); 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(session({ cookie: { maxAge: null } }))
 app.use('/views', express.static(path.join(__dirname, '/views')));
 
+
+
 app.get('/', function (req, res) {
-    res.redirect("/views/login.html");
+    res.render('login', { message: req.flash('message') });
 });
 app.post('/login', function (req, res) {
     var uname = req.body.uname;
     var psw = req.body.psw;
 
     Account.findOne({ uname: uname, psw: psw }, function (err, user) {
-        if (err) res.redirect("/views/signup.html");
-        if (!user) return res.send(401);
-        res.render('post-detail'); 
-
-    });
+        if (!user) {
+            req.flash('message', 'username and password are wrong!!');
+            res.render('login', { message: req.flash('message') });
+        }
+        else {
+            req.flash('message','saved sucessfully!')
+            res.render('post-detail');
+        }
+        });
     
 });
 app.get('/signup', function (req, res) {
@@ -74,7 +83,7 @@ app.post('/signup', function (req, res) {
 
     });
 
-   res.redirect("/views/login.html");
+   res.render('login');
     
 });
 app.get('/post-details', function (req, res) {

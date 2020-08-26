@@ -37,7 +37,7 @@
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
-    <Content Include="views\login.html">
+    <Content Include="views\login.ejs">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\post-detail.ejs">
