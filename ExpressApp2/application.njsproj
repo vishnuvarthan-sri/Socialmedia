@@ -43,7 +43,7 @@
     <Content Include="views\post-detail.ejs">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="views\signup.html">
+    <Content Include="views\signup.ejs">
       <SubType>Code</SubType>
     </Content>
   </ItemGroup>

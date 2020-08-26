@@ -60,7 +60,7 @@ app.post('/login', function (req, res) {
     
 });
 app.get('/signup', function (req, res) {
-    res.redirect("/views/signup.html");
+    res.render('signup');
     
 });
 // sign up a new account handler
@@ -79,12 +79,16 @@ app.post('/signup', function (req, res) {
          });
     user.save(function (err) {
         if (err) throw err;
-        console.log('User saved successfully!');
 
-    });
+        if (Cnpsw !== psw) {
+            req.flash('message', 'wrong password!');
+            res.render('signup');
+        }
+        else {
+            res.render('login');
+        }
 
-   res.render('login');
-    
+    }); 
 });
 app.get('/post-details', function (req, res) {
             res.render('post-detail'); 
@@ -107,5 +111,5 @@ app.post('/posts/detail/:id', function (req, res) {
 //logout request
     app.get('/logout', function (req, res) {
         req.session.destroy();
-        res.redirect("/views/login.html");
+        res.render('login');
     });

@@ -81,11 +81,23 @@
                 width: 100%;
             }
         }
+        .flash {
+            text-align: center;
+            border: inset;
+            background-color: chartreuse;
+            color: black;
+            font-weight: bold;
+        }
     </style>
 
 </head>
 <body>
-    
+    <% if(message.length>0) { %>
+    <div class="flash">
+        <%= message %>
+    </div>
+    <% }%>
+
     <div class="signup-form">
         <h1>Sign Up</h1>
         <form action="/signup" method="post">
