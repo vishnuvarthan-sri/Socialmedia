@@ -60,7 +60,7 @@ app.post('/login', function (req, res) {
     
 });
 app.get('/signup', function (req, res) {
-    res.render('signup');
+    res.render('signup', { message: req.flash('message') });
     
 });
 // sign up a new account handler
@@ -82,7 +82,7 @@ app.post('/signup', function (req, res) {
 
         if (Cnpsw !== psw) {
             req.flash('message', 'wrong password!');
-            res.render('signup');
+            res.render('signup', { message: req.flash('message') });
         }
         else {
             res.render('login');
