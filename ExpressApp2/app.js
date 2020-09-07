@@ -4,7 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var bcrypt = require('bcrypt');
 var window = require('window');
 var mongo = require('mongodb');
 var http = require("http").Server(app);
