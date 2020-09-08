@@ -111,12 +111,6 @@
             <div class="header">
                 <h1>POST</h1>
             </div>
-
-            <div class="col-25">
-                <label for="description"> POST DESCRIPTION:</label><br />
-                <input type="text" id="description" placeholder="descripion of post" />
-            </div>
-
             <div class="col-25">
                 <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
                 <label for="file" style="cursor: pointer;">Image</label>
@@ -138,6 +132,11 @@
             <div class="topright">
                 <input type="submit" formaction="/logout" formmethod="post" value="logout" />
             </div>
+            <br />
+            <div class="topright">
+                <input type="submit" formaction="/password" formmethod="post" value="changepassword" />
+            </div>
+
         </div>
 
 

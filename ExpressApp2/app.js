@@ -114,8 +114,7 @@ app.get('/post-details', function (req, res) {
 app.post('/posts/detail/:id', function (req, res) {
    
     var post1 = new Post({
-        
-        description: req.body.description,  
+         
         post: req.body.post
 
     });
