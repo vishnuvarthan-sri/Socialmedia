@@ -76,10 +76,10 @@ app.post('/signup', function (req, res) {
 
         if (Cnpsw !== psw) {
             req.flash('message', 'wrong password!');
-            res.render('signup', { message: req.flash('message') });
+            res.render('signup');
         }
-        else {
-            res.render('login');
+        else  {
+            res.render('login', { message: req.flash('message') });
         }
 
     }); 
