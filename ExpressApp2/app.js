@@ -97,8 +97,9 @@ app.post('/password', function (req, res) {
     Account.findOneAndUpdate({ psw: psw, Cnpsw: Cnpsw }, function (err, user) {
         if (Cnpsw !== psw) {
             req.flash('message', 'wrong password!');
+            res.redirect("/views/password.html");
         }
-        if (user) {
+        else  {
             req.render('login');
         }
 
