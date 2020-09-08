@@ -87,7 +87,7 @@ app.post('/signup', function (req, res) {
 });
 
 app.get('/password', function (req, res) {
-    res.render('password');
+    res.render('password', { isAdded: true });
 }); 
 
 app.post('/password', function (req, res) {
@@ -95,13 +95,14 @@ app.post('/password', function (req, res) {
     var Cnpsw = req.body.Cnpsw;
 
 
-    Account.findOneAndUpdate({psw: psw}, function (err, user) {
+    Account.findOneAndUpdate({ psw: psw }, function (err, user) {
+
         if (Cnpsw !== psw) {
-            res.status(401).render('password', { isAdded: true });
+            res.render('password', { isAdded: true });
         }
-        else  {
-            req.render('login');
-        }
+
+        if(user) req.render('login');
+        
 
     });
 
