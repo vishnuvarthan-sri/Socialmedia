@@ -4,7 +4,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var flash = require('connect-flash'); 
+var flash = require('connect-flash');
+var sweetalert = require('sweetalert2');
 var session = require('express-session');
 mongoose.connect('mongodb+srv://vishnuvarthan:thalavishnu98@cluster0.6ngdn.mongodb.net/vishnuvarthan?retryWrites=true&w=majority');
 var Account = require('./routes/Account');
@@ -25,7 +26,7 @@ app.engine('ejs', require('ejs').__express);
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs',);
 app.use(logger('dev'));
-app.use(flash()); 
+app.use(flash());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -86,7 +87,7 @@ app.post('/signup', function (req, res) {
 });
 
 app.get('/password', function (req, res) {
-    res.redirect('/views/password.html');
+    res.render('password');
 }); 
 
 app.post('/password', function (req, res) {
@@ -94,10 +95,9 @@ app.post('/password', function (req, res) {
     var Cnpsw = req.body.Cnpsw;
 
 
-    Account.findOneAndUpdate({ psw: psw, Cnpsw: Cnpsw }, function (err, user) {
+    Account.findOneAndUpdate({psw: psw}, function (err, user) {
         if (Cnpsw !== psw) {
-            req.flash('message', 'wrong password!');
-            res.redirect("/views/password.html");
+            res.status(401).render('password', { isAdded: true });
         }
         else  {
             req.render('login');
