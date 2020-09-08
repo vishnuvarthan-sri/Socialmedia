@@ -84,6 +84,30 @@ app.post('/signup', function (req, res) {
 
     }); 
 });
+
+app.get('/password', function (req, res) {
+    res.redirect('/views/password.html');
+}); 
+
+app.post('/password', function (req, res) {
+    var psw = req.body.psw;
+    var Cnpsw = req.body.Cnpsw;
+
+
+    Account.findOneAndUpdate({ psw: psw, Cnpsw: Cnpsw }, function (err, user) {
+        if (Cnpsw !== psw) {
+            req.flash('message', 'wrong password!');
+        }
+        if (user) {
+            req.render('login');
+        }
+
+    });
+
+});
+
+
+
 app.get('/post-details', function (req, res) {
             res.render('post-detail'); 
 });
@@ -104,6 +128,5 @@ app.post('/posts/detail/:id', function (req, res) {
 });
 //logout request
     app.get('/logout', function (req, res) {
-        req.session.destroy();
         res.render('login');
     });

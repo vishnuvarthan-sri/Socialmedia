@@ -40,6 +40,9 @@
     <Content Include="views\login.ejs">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\password.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\post-detail.ejs">
       <SubType>Code</SubType>
     </Content>
