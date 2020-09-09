@@ -4,7 +4,6 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-
     <style>
 
         body {
@@ -112,25 +111,12 @@
                 <h1>POST</h1>
             </div>
             <div class="col-25">
-                <input type="file" accept="image/*" name="image" id="file" onchange="loadFile(event)" style="display: none;">
-                <label for="file" style="cursor: pointer;">Image</label>
-                <img id="output" class="avatar" />
-
-                <script>
-                    var loadFile = function (event) {
-                        var image = document.getElementById('output');
-                        image.src = URL.createObjectURL(event.target.files[0]);
-                    };
-                </script>
-            </div>
-
-            <div class="col-25">
                 <label for="post">Post: </label>
                 <textarea id="post" name="post" placeholder="post here " rows="20" cols="40"></textarea><br />
             </div>
 
             <div class="topright">
-                <input type="submit" formaction="/logout" formmethod="get" value="logout" />
+                <input type="submit" formaction="/logout" formmethod="post" value="logout" />
             </div>
             <br />
             <div class="topright">

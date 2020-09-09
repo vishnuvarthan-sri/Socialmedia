@@ -87,25 +87,32 @@ app.post('/signup', function (req, res) {
 });
 
 app.get('/password', function (req, res) {
-    res.render('password', { isAdded: true });
+    res.render('password', { isAdded: true }, { password: true });
 }); 
 
 app.post('/password', function (req, res) {
     var psw = req.body.psw;
     var Cnpsw = req.body.Cnpsw;
+    var email = req.body.email;
+
+    Account.findOne({ email: email }, function (err, user) {
+        if (err) res.render('password', { isAdded: true });
+        if (user) {
+            Account.findOneAndUpdate({ psw: psw }, function (user) {
+
+                if (Cnpsw !== psw) {
+                    res.render('password', { password: true });
+                }
+
+                req.render('login');
 
 
-    Account.findOneAndUpdate({ psw: psw }, function (err, user) {
-
-        if (Cnpsw !== psw) {
-            res.render('password', { isAdded: true });
+            });
         }
-
-        if(user) req.render('login');
         
-
     });
 
+   
 });
 
 
@@ -127,6 +134,7 @@ app.post('/posts/detail/:id', function (req, res) {
     });
     
 });
+
 //logout request
     app.get('/logout', function (req, res) {
         res.render('login');
