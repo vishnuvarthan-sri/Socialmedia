@@ -104,7 +104,7 @@ app.post('/password', function (req, res) {
                     res.render('signup');
                 }
                 else {
-                    Account.updateOne({ psw: psw }, function (user) {
+                    Account.findOneAndUpdate({ psw: psw }, function (user) {
                         res.render('login', { message: req.flash('message') });
                     });
                 }
