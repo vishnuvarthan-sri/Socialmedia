@@ -43,7 +43,7 @@ app.post('/login', function (req, res) {
     var psw = req.body.psw;
     var email = req.body.email;
 
-    Account.find({ uname: uname, psw: psw, email: email }, function (err, user) {
+    Account.findOne({ uname: uname, psw: psw, email: email }, function (err, user) {
         if (!user) {
             req.flash('message', ' Wrong User!!');
             res.render('login', { message: req.flash('message') });
