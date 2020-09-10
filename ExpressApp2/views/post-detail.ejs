@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
 
         body {
@@ -30,7 +30,7 @@
             background-color: lightcyan;
             color: orangered;
             padding: 10px;
-            margin-right:10px;
+            margin-right: 10px;
         }
 
             .header h1 {
@@ -79,7 +79,7 @@
 
 
         @media screen and (max-width: 800px) {
-            .col-25, input[type=submit] {
+            .col-25, input[type=submit] ,body{
                 width: 100%;
                 margin-top: 0;
                 padding: 0;
@@ -108,7 +108,7 @@
             </div>
 
             <div class="topright">
-                <input type="submit" formaction="/logout" formmethod="post" value="logout" />
+                <input type="submit" formaction="/logout" formmethod="get" value="logout" />
             </div>
             <br />
             <div class="topright">

@@ -41,10 +41,11 @@ app.get('/', function (req, res) {
 app.post('/login', function (req, res) {
     var uname = req.body.uname;
     var psw = req.body.psw;
+    var email = req.body.email;
 
-    Account.findOne({ uname: uname, psw: psw }, function (err, user) {
+    Account.find({ uname: uname, psw: psw, email: email }, function (err, user) {
         if (!user) {
-            req.flash('message', 'username and password are wrong!!');
+            req.flash('message', ' Wrong User!!');
             res.render('login', { message: req.flash('message') });
         }
         else {
@@ -87,30 +88,37 @@ app.post('/signup', function (req, res) {
 });
 
 app.get('/password', function (req, res) {
-    res.render('password', { isAdded: true });
+    res.render('password', { isAdded: false});
 }); 
 
 app.post('/password', function (req, res) {
     var psw = req.body.psw;
     var Cnpsw = req.body.Cnpsw;
     var email = req.body.email;
-
-    Account.findOne({ email: email }, function (err, user) {
-        if (err) res.render('password', { isAdded: true });
-        if (user) {
-            Account.findOneAndUpdate({ psw: psw }, function (user) {
+   
+        Account.findOne({ email: email }, function (err, user) {
+            if (user) {
 
                 if (Cnpsw !== psw) {
+                    req.flash('message', 'wrong password!');
+                    res.render('signup');
+                }
+                else {
+                    Account.updateOne({ psw: psw }, function (user) {
+                        res.render('login', { message: req.flash('message') });
+                    });
+                }
+            }
+
+            else {
                     res.render('password', { isAdded: true });
                 }
+            
 
-                res.render('login');
+        });
 
-
-            });
-        }
-        
-    });
+   
+   
 
    
 });
