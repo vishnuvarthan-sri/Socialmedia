@@ -49,7 +49,7 @@ app.post('/login', function (req, res) {
             res.render('login', { message: req.flash('message') });
         }
         else {
-            req.flash('message','saved sucessfully!')
+            req.flash('message', 'saved sucessfully!');
             res.render('post-detail');
         }
         });
@@ -117,10 +117,7 @@ app.post('/password', function (req, res) {
 
         });
 
-   
-   
 
-   
 });
 
 
