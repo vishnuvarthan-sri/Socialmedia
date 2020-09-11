@@ -109,7 +109,6 @@ app.post('/password', function (req, res) {
                     });
                 }
             }
-
             else {
                     res.render('password', { isAdded: true });
                 }
