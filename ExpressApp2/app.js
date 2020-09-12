@@ -41,9 +41,8 @@ app.get('/', function (req, res) {
 app.post('/login', function (req, res) {
     var uname = req.body.uname;
     var psw = req.body.psw;
-    var email = req.body.email;
 
-    Account.findOne({ uname: uname, psw: psw, email: email }, function (err, user) {
+    Account.findOne({ uname: uname, psw: psw }, function (err, user) {
         if (!user) {
             req.flash('message', ' Wrong User!!');
             res.render('login', { message: req.flash('message') });
@@ -141,5 +140,5 @@ app.post('/posts/detail/:id', function (req, res) {
 
 //logout request
     app.get('/logout', function (req, res) {
-        res.render('login');
+        res.render('login', { message: req.flash('message') });
     });
