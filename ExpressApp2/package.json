@@ -34,7 +34,7 @@
     "node-pre-gyp": "^0.15.0",
     "password-crypt": "^2.2.0",
     "path": "^0.12.7",
-    "pug": "^2.0.0-beta6",
+    "pug": "^3.0.1",
     "routes": "^2.1.0",
     "serve-favicon": "^2.3.0",
     "server": "^1.0.30",
