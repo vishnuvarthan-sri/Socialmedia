@@ -21,7 +21,7 @@
     "debug": "^2.6.9",
     "ejs": "^3.1.5",
     "express": "^4.14.0",
-    "express-handlebars": "^5.1.0",
+    "express-handlebars": "^5.3.1",
     "express-session": "^1.17.1",
     "form-urlencoded": "^4.2.1",
     "html": "^1.0.0",
